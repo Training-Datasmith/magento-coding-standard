@@ -36,7 +36,7 @@ class CopyrightAnotherExtensionsFilesSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($stackPtr > 0) {
             return;

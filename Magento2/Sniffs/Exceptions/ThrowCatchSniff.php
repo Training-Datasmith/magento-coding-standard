@@ -31,7 +31,7 @@ class ThrowCatchSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_TRY];
     }
@@ -39,7 +39,7 @@ class ThrowCatchSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $endOfStatement = $phpcsFile->findEndOfStatement($stackPtr);
@@ -92,11 +92,9 @@ class ThrowCatchSniff implements Sniff
     /**
      * Get the full class name with namespace.
      *
-     * @param array $tokens
      * @param int $startPos
-     * @return string
      */
-    private function getFullClassName(array $tokens, $startPos)
+    private function getFullClassName(array $tokens, int|float $startPos): string
     {
         $fullName = "";
         $endOfClassName = [T_SEMICOLON => 0, T_CLOSE_PARENTHESIS => 0];

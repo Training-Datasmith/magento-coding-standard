@@ -43,7 +43,7 @@ class ReservedWordsSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_CLASS, T_INTERFACE, T_TRAIT, T_NAMESPACE];
     }
@@ -51,8 +51,6 @@ class ReservedWordsSniff implements Sniff
     /**
      * Check all namespace parts
      *
-     * @param File $sourceFile
-     * @param int $stackPtr
      * @return void
      */
     protected function validateNamespace(File $sourceFile, int $stackPtr)
@@ -65,12 +63,12 @@ class ReservedWordsSniff implements Sniff
                 continue;
             }
             $namespacePart = $tokens[$stackPtr]['content'];
-            if (isset($this->reservedWords[strtolower($namespacePart)])) {
+            if (isset($this->reservedWords[strtolower((string) $namespacePart)])) {
                 $sourceFile->addError(
                     'Cannot use "%s" in namespace as it is reserved since PHP %s',
                     $stackPtr,
                     self::NAMESPACE_ERROR_CODE,
-                    [$namespacePart, $this->reservedWords[strtolower($namespacePart)]]
+                    [$namespacePart, $this->reservedWords[strtolower((string) $namespacePart)]]
                 );
             }
             $stackPtr++;
@@ -80,15 +78,13 @@ class ReservedWordsSniff implements Sniff
     /**
      * Check class name not having reserved words
      *
-     * @param File $sourceFile
-     * @param int $stackPtr
      * @return void
      */
     protected function validateClass(File $sourceFile, int $stackPtr)
     {
         $tokens = $sourceFile->getTokens();
         $stackPtr += 2; //skip "class" and whitespace
-        $className = strtolower($tokens[$stackPtr]['content']);
+        $className = strtolower((string) $tokens[$stackPtr]['content']);
         if (isset($this->reservedWords[$className])) {
             $sourceFile->addError(
                 'Cannot use "%s" as class name as it is reserved since PHP %s',
@@ -102,7 +98,7 @@ class ReservedWordsSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, int $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         switch ($tokens[$stackPtr]['code']) {

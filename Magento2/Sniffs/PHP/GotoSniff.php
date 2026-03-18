@@ -30,7 +30,7 @@ class GotoSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_GOTO];
     }
@@ -38,7 +38,7 @@ class GotoSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $phpcsFile->addError($this->errorMessage, $stackPtr, $this->errorCode);
     }

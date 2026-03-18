@@ -105,7 +105,7 @@ class ReturnValueCheckSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_IF, T_ELSEIF];
     }
@@ -113,7 +113,7 @@ class ReturnValueCheckSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $this->tokens = $phpcsFile->getTokens();
         $this->file = $phpcsFile;
@@ -144,11 +144,10 @@ class ReturnValueCheckSniff implements Sniff
         $rightToken = $this->tokens[$rightBound];
         if ($leftToken['code'] === T_OPEN_PARENTHESIS && $rightToken['code'] === T_CLOSE_PARENTHESIS) {
             return $this->findIdentical($leftBound - 1, $rightBound + 1);
-        } else {
-            return (
-                in_array($leftToken['code'], $this->identical) || in_array($rightToken['code'], $this->identical)
-            ) ?: false;
         }
+        return (
+            in_array($leftToken['code'], $this->identical) || in_array($rightToken['code'], $this->identical)
+        ) ?: false;
     }
 
     /**

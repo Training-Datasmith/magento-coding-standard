@@ -14,10 +14,7 @@ use PHP_CodeSniffer\Files\File;
  */
 class ConstantsPHPDocFormattingSniff implements Sniff
 {
-    /**
-     * @var PHPDocFormattingValidator
-     */
-    private $PHPDocFormattingValidator;
+    private readonly \Magento2\Helpers\Commenting\PHPDocFormattingValidator $PHPDocFormattingValidator;
 
     /**
      * Helper initialisation
@@ -30,7 +27,7 @@ class ConstantsPHPDocFormattingSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_CONST,
@@ -41,7 +38,7 @@ class ConstantsPHPDocFormattingSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 

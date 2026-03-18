@@ -24,10 +24,7 @@ class AvoidIdSniff implements Sniff
      */
     public $supportedTokenizers = [TokenizerSymbolsInterface::TOKENIZER_CSS];
 
-    /**
-     * @var array
-     */
-    private $selectorTokens = [
+    private array $selectorTokens = [
         T_HASH,
         T_WHITESPACE,
         T_STRING_CONCAT,
@@ -55,7 +52,7 @@ class AvoidIdSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_HASH];
     }
@@ -84,7 +81,7 @@ class AvoidIdSniff implements Sniff
      *     blah: 'abc';
      * }
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 

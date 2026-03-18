@@ -27,7 +27,7 @@ class ColourDefinitionSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_COLOUR];
     }
@@ -35,7 +35,7 @@ class ColourDefinitionSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $colour = $tokens[$stackPtr]['content'];
@@ -45,14 +45,14 @@ class ColourDefinitionSniff implements Sniff
             $phpcsFile->addError('A variable should be used for a CSS colour', $stackPtr, 'NotInVariable');
         }
 
-        $expected = strtolower($colour);
+        $expected = strtolower((string) $colour);
         if ($colour !== $expected) {
             $error = 'CSS colours must be defined in lowercase; expected %s but found %s';
             $phpcsFile->addError($error, $stackPtr, 'NotLower', [$expected, $colour]);
         }
 
         // Now check if shorthand can be used.
-        if (strlen($colour) !== 7) {
+        if (strlen((string) $colour) !== 7) {
             return;
         }
 

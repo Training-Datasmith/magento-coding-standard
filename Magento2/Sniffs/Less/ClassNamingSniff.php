@@ -33,7 +33,7 @@ class ClassNamingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_STRING_CONCAT];
     }
@@ -41,7 +41,7 @@ class ClassNamingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -58,7 +58,7 @@ class ClassNamingSniff implements Sniff
         }
 
         $className = $tokens[$stackPtr + 1]['content'];
-        if (preg_match_all('/[^a-z0-9\-_]/U', $className, $matches)) {
+        if (preg_match_all('/[^a-z0-9\-_]/U', (string) $className, $matches)) {
             $phpcsFile->addError(
                 'CSS class name does not follow class naming requirements: %s',
                 $stackPtr,
@@ -67,8 +67,8 @@ class ClassNamingSniff implements Sniff
             );
         }
 
-        if (strlen($className) > 1 && strpos($className, self::STRING_HELPER_CLASSES_PREFIX, 2) !== false
-            && !str_starts_with($className, 'admin__')
+        if (strlen((string) $className) > 1 && str_contains(substr((string) $className, 2), self::STRING_HELPER_CLASSES_PREFIX)
+            && !str_starts_with((string) $className, 'admin__')
         ) {
             $phpcsFile->addError(
                 'CSS class names should be separated with "-" (dash) instead of "_" (underscore)',

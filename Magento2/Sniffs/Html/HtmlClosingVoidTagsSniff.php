@@ -66,9 +66,7 @@ class HtmlClosingVoidTagsSniff implements Sniff
     /**
      * Detect use of self-closing tag with void html element.
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @return void
      */
     public function process(File $phpcsFile, $stackPtr): void
     {

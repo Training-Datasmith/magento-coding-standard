@@ -27,7 +27,7 @@ class QuotesSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_CONSTANT_ENCAPSED_STRING];
     }
@@ -35,11 +35,11 @@ class QuotesSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (false !== strpos($tokens[$stackPtr]['content'], '"')) {
+        if (str_contains((string) $tokens[$stackPtr]['content'], '"')) {
             $phpcsFile->addError('Use single quotes', $stackPtr, 'DoubleQuotes');
         }
     }

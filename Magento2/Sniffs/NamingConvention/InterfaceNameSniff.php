@@ -27,15 +27,12 @@ class InterfaceNameSniff implements Sniff
      */
     protected $warningCode = 'WrongInterfaceName';
 
-    /**
-     * @var string
-     */
-    private $interfaceSuffix = 'Interface';
+    private string $interfaceSuffix = 'Interface';
 
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_INTERFACE];
     }
@@ -43,7 +40,7 @@ class InterfaceNameSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $declarationLine = $tokens[$stackPtr]['line'];
@@ -51,7 +48,7 @@ class InterfaceNameSniff implements Sniff
         // Find first T_STRING after 'interface' keyword in the line and verify it
         while ($tokens[$stackPtr]['line'] === $declarationLine) {
             if ($tokens[$stackPtr]['type'] === 'T_STRING') {
-                if (substr($tokens[$stackPtr]['content'], 0 - $suffixLength) !== $this->interfaceSuffix) {
+                if (substr((string) $tokens[$stackPtr]['content'], -$suffixLength) !== $this->interfaceSuffix) {
                     $phpcsFile->addWarning($this->warningMessage, $stackPtr, $this->warningCode);
                 }
                 break;

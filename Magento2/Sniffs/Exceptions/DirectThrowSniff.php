@@ -31,7 +31,7 @@ class DirectThrowSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_THROW];
     }
@@ -39,7 +39,7 @@ class DirectThrowSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $endOfStatement = $phpcsFile->findEndOfStatement($stackPtr);
@@ -56,8 +56,8 @@ class DirectThrowSniff implements Sniff
             $useStatementValue = $this->getFullClassNameAndAlias($tokens, $key, $endOfUse);
             //we safely consider use statement has alias will not be a direct exception class
             if (empty($useStatementValue['alias'])) {
-                if (substr($useStatementValue['name'], 0, strlen($exceptionString)) !== $exceptionString
-                    && substr($useStatementValue['name'], -strlen($exceptionString)) === $exceptionString
+                if (!str_starts_with((string) $useStatementValue['name'], $exceptionString)
+                    && str_ends_with((string) $useStatementValue['name'], $exceptionString)
                     && $useStatementValue['name'] !== $exceptionString
                 ) {
                     $customExceptionFound = true;
@@ -80,12 +80,10 @@ class DirectThrowSniff implements Sniff
     /**
      * Get full class name and alias
      *
-     * @param array $tokens
      * @param int $start
      * @param int $end
-     * @return array
      */
-    private function getFullClassNameAndAlias($tokens, $start, $end): array
+    private function getFullClassNameAndAlias(array $tokens, $start, $end): array
     {
         $fullName = $alias = '';
         $foundAlias = false;

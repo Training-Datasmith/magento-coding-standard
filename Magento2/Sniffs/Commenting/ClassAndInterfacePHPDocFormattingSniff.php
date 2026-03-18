@@ -15,10 +15,7 @@ use PHP_CodeSniffer\Files\File;
  */
 class ClassAndInterfacePHPDocFormattingSniff implements Sniff
 {
-    /**
-     * @var PHPDocFormattingValidator
-     */
-    private $PHPDocFormattingValidator;
+    private readonly \Magento2\Helpers\Commenting\PHPDocFormattingValidator $PHPDocFormattingValidator;
 
     /**
      * @var string[] List of tags that can not be used in comments
@@ -41,7 +38,7 @@ class ClassAndInterfacePHPDocFormattingSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_CLASS,
@@ -52,7 +49,7 @@ class ClassAndInterfacePHPDocFormattingSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -69,7 +66,7 @@ class ClassAndInterfacePHPDocFormattingSniff implements Sniff
             $fix = $phpcsFile->addFixableWarning(
                 sprintf(
                     '%s description must contain meaningful information beyond what its name provides or be removed.',
-                    ucfirst($tokens[$stackPtr]['content'])
+                    ucfirst((string) $tokens[$stackPtr]['content'])
                 ),
                 $stackPtr,
                 'InvalidDescription'
@@ -104,12 +101,9 @@ class ClassAndInterfacePHPDocFormattingSniff implements Sniff
     /**
      * Validates that forbidden tags are not used in comment
      *
-     * @param File $phpcsFile
      * @param int $commentStartPtr
-     * @param array $tokens
-     * @return bool
      */
-    private function validateTags(File $phpcsFile, $commentStartPtr, $tokens)
+    private function validateTags(File $phpcsFile, $commentStartPtr, array $tokens): bool
     {
         $commentCloserPtr = $tokens[$commentStartPtr]['comment_closer'];
 

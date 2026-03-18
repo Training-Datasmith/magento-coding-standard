@@ -24,10 +24,7 @@ class TypeSelectorConcatenationSniff implements Sniff
      */
     public $supportedTokenizers = [TokenizerSymbolsInterface::TOKENIZER_CSS];
 
-    /**
-     * @var array
-     */
-    private $symbolsBeforeConcat = [
+    private array $symbolsBeforeConcat = [
         TokenizerSymbolsInterface::INDENT_SPACES,
         TokenizerSymbolsInterface::NEW_LINE,
     ];
@@ -35,7 +32,7 @@ class TypeSelectorConcatenationSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_BITWISE_AND];
     }
@@ -43,11 +40,11 @@ class TypeSelectorConcatenationSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (0 === strpos($tokens[$stackPtr + 1]['content'], '-')
+        if (str_starts_with((string) $tokens[$stackPtr + 1]['content'], '-')
             && in_array($tokens[$stackPtr - 1]['content'], $this->symbolsBeforeConcat)
         ) {
             $phpcsFile->addError('Concatenation is used', $stackPtr, 'ConcatenationUsage');

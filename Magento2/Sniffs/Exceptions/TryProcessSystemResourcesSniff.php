@@ -41,7 +41,7 @@ class TryProcessSystemResourcesSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_STRING];
     }
@@ -49,12 +49,12 @@ class TryProcessSystemResourcesSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
         foreach ($this->functions as $function) {
-            if (strpos($tokens[$stackPtr]['content'], $function) !== 0) {
+            if (!str_starts_with((string) $tokens[$stackPtr]['content'], (string) $function)) {
                 continue;
             }
             $tryPosition = $phpcsFile->findPrevious(T_TRY, $stackPtr - 1);

@@ -24,15 +24,9 @@ class PropertiesSortingSniff implements Sniff
      */
     public $supportedTokenizers = [TokenizerSymbolsInterface::TOKENIZER_CSS];
 
-    /**
-     * @var array
-     */
-    private $properties = [];
+    private array $properties = [];
 
-    /**
-     * @var array
-     */
-    private $styleSymbolsToSkip = [
+    private array $styleSymbolsToSkip = [
         TokenizerSymbolsInterface::BITWISE_AND,
         TokenizerSymbolsInterface::COLON,
     ];
@@ -40,7 +34,7 @@ class PropertiesSortingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_OPEN_CURLY_BRACKET,
@@ -54,7 +48,7 @@ class PropertiesSortingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $currentToken = $tokens[$stackPtr];
@@ -87,21 +81,16 @@ class PropertiesSortingSniff implements Sniff
     /**
      * Validate sorting of properties of class
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $properties
      *
-     * @return void
      */
-    private function validatePropertiesSorting(File $phpcsFile, $stackPtr, array $properties)
+    private function validatePropertiesSorting(File $phpcsFile, $stackPtr, array $properties): void
     {
         // Fix needed for cases when incorrect properties passed for validation due to bug in PHP tokens.
         $symbolsForSkip = ['(', 'block', 'field'];
         $properties = array_filter(
             $properties,
-            function ($var) use ($symbolsForSkip) {
-                return !in_array($var, $symbolsForSkip);
-            }
+            fn($var) => !in_array($var, $symbolsForSkip)
         );
 
         $originalProperties = $properties;

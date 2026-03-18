@@ -24,25 +24,19 @@ class SemicolonSpacingSniff implements Sniff
      */
     public $supportedTokenizers = [TokenizerSymbolsInterface::TOKENIZER_CSS];
 
-    /**
-     * @var array
-     */
-    private $styleSymbolsToSkip = [
+    private array $styleSymbolsToSkip = [
         TokenizerSymbolsInterface::BITWISE_AND,
         TokenizerSymbolsInterface::COLON,
         TokenizerSymbolsInterface::OPEN_PARENTHESIS,
         TokenizerSymbolsInterface::CLOSE_PARENTHESIS,
     ];
 
-    /**
-     * @var array
-     */
-    private $styleCodesToSkip = [T_ASPERAND, T_COLON, T_OPEN_PARENTHESIS, T_CLOSE_PARENTHESIS];
+    private array $styleCodesToSkip = [T_ASPERAND, T_COLON, T_OPEN_PARENTHESIS, T_CLOSE_PARENTHESIS];
 
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_STYLE];
     }
@@ -50,7 +44,7 @@ class SemicolonSpacingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -70,13 +64,10 @@ class SemicolonSpacingSniff implements Sniff
     /**
      * Semicolon validation.
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
      * @param int $semicolonPtr
-     * @return void
      */
-    private function validateSemicolon(File $phpcsFile, $stackPtr, array $tokens, $semicolonPtr)
+    private function validateSemicolon(File $phpcsFile, $stackPtr, array $tokens, $semicolonPtr): void
     {
         if ((false === $semicolonPtr || $tokens[$semicolonPtr]['line'] !== $tokens[$stackPtr]['line'])
             && (isset($tokens[$stackPtr - 1]) && !in_array($tokens[$stackPtr - 1]['code'], $this->styleCodesToSkip))
@@ -90,20 +81,17 @@ class SemicolonSpacingSniff implements Sniff
     /**
      * Spaces validation.
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
      * @param int $semicolonPtr
-     * @return void
      */
-    private function validateSpaces(File $phpcsFile, $stackPtr, array $tokens, $semicolonPtr)
+    private function validateSpaces(File $phpcsFile, $stackPtr, array $tokens, $semicolonPtr): void
     {
         if (!isset($tokens[($semicolonPtr - 1)])) {
             return;
         }
 
         if ($tokens[($semicolonPtr - 1)]['code'] === T_WHITESPACE) {
-            $length  = strlen($tokens[($semicolonPtr - 1)]['content']);
+            $length  = strlen((string) $tokens[($semicolonPtr - 1)]['content']);
             $error = 'Expected 0 spaces before semicolon in style definition; %s found';
             $data  = [$length];
             $phpcsFile->addError($error, $stackPtr, 'SpaceFound', $data);

@@ -18,10 +18,6 @@ class Assert
 {
     /**
      * Checks whether it is a built-in function call.
-     *
-     * @param File $phpcsFile
-     * @param int $stackPtr
-     * @return bool
      */
     public static function isBuiltinFunctionCall(File $phpcsFile, int $stackPtr): bool
     {

@@ -34,12 +34,12 @@ class DiscouragedDependenciesSniff implements Sniff
     /**
      * @var string[]
      */
-    private $aliases = [];
+    private array $aliases = [];
 
     /**
      * @var null|string
      */
-    private $currentFile = null;
+    private $currentFile;
 
     /**
      * @var string[]
@@ -49,7 +49,7 @@ class DiscouragedDependenciesSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_USE,
@@ -60,7 +60,7 @@ class DiscouragedDependenciesSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         // Clear down aliases when file under test changes
         $currentFileName = $phpcsFile->getFilename();
@@ -83,15 +83,13 @@ class DiscouragedDependenciesSniff implements Sniff
     /**
      * Store plugin/proxy class names for use in matching constructor
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
      */
     private function processUse(
         File $phpcsFile,
         $stackPtr,
-        $tokens
-    ) {
+        array $tokens
+    ): void {
         // Find end of use statement and position of AS alias if exists
         $endPos = $phpcsFile->findNext(T_SEMICOLON, $stackPtr);
         $asPos = $phpcsFile->findNext(T_AS, $stackPtr, $endPos);
@@ -110,7 +108,7 @@ class DiscouragedDependenciesSniff implements Sniff
         // If there is an alias then store this explicit alias for matching in constructor
         if ($asPos) {
             $aliasNamePos    = $asPos + 2;
-            $this->aliases[] = strtolower($tokens[$aliasNamePos]['content']);
+            $this->aliases[] = strtolower((string) $tokens[$aliasNamePos]['content']);
         }
         // Always store last word as alias for checking in constructor
         $this->aliases[] = $lastWord;
@@ -119,15 +117,13 @@ class DiscouragedDependenciesSniff implements Sniff
     /**
      * If constructor, check for proxy/plugin names and warn
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
      */
     private function processFunction(
         File $phpcsFile,
         $stackPtr,
-        $tokens
-    ) {
+        array $tokens
+    ): void {
         // Find start and end of constructor signature based on brackets
         if (! $this->getConstructorPosition($phpcsFile, $stackPtr, $tokens, $openParenth, $closeParenth)) {
             return;
@@ -146,7 +142,7 @@ class DiscouragedDependenciesSniff implements Sniff
 
             if ($currentTokenIsString) {
                 // Remember string in case this is last before variable
-                $lastName = strtolower($tokens[$positionInConstrSig]['content']);
+                $lastName = strtolower((string) $tokens[$positionInConstrSig]['content']);
             } else {
                 // If this is a variable, check last word for matches as was end of classname/alias
                 if ($lastName !== null) {
@@ -169,9 +165,7 @@ class DiscouragedDependenciesSniff implements Sniff
     /**
      * Sets start and end of constructor signature or returns false
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
      * @param int $openParenth
      * @param int $closeParenth
      *
@@ -183,7 +177,7 @@ class DiscouragedDependenciesSniff implements Sniff
         array $tokens,
         &$openParenth,
         &$closeParenth
-    ) {
+    ): bool {
         $methodNamePos = $phpcsFile->findNext(T_STRING, $stackPtr - 1);
         if ($methodNamePos === false) {
             return false;
@@ -209,10 +203,8 @@ class DiscouragedDependenciesSniff implements Sniff
      *
      * @param array $haystacks
      * @param string $name
-     *
-     * @return bool
      */
-    private function containsWord($haystacks, $name)
+    private function containsWord($haystacks, $name): bool
     {
         return in_array($name, $haystacks);
     }
@@ -222,10 +214,8 @@ class DiscouragedDependenciesSniff implements Sniff
      *
      * Populates $lastWord in set to get usable name from namespace
      *
-     * @param File $phpcsFile
      * @param int $startPosition
      * @param int $endPosition
-     * @param array $tokens
      * @param string|null $lastWord
      *
      * @return bool
@@ -234,7 +224,7 @@ class DiscouragedDependenciesSniff implements Sniff
         File $phpcsFile,
         $startPosition,
         $endPosition,
-        $tokens,
+        array $tokens,
         &$lastWord
     ) {
         $includesWarnWord = false;
@@ -242,7 +232,7 @@ class DiscouragedDependenciesSniff implements Sniff
         do {
             $currentPosition = $phpcsFile->findNext(T_STRING, $currentPosition + 1, $endPosition);
             if ($currentPosition !== false) {
-                $word = strtolower($tokens[$currentPosition]['content']);
+                $word = strtolower((string) $tokens[$currentPosition]['content']);
                 if ($this->containsWord($this->mergedNamesToWarn(false), $word)) {
                     $includesWarnWord = true;
                 }
@@ -258,15 +248,14 @@ class DiscouragedDependenciesSniff implements Sniff
      *
      * Includes aliases if required
      *
-     * @param bool $includeAliases
      *
      * @return array
      */
-    private function mergedNamesToWarn($includeAliases = false)
+    private function mergedNamesToWarn(bool $includeAliases = false)
     {
         $namesToWarn = $this->incorrectClassNames;
         if ($includeAliases) {
-            $namesToWarn = array_merge($namesToWarn, $this->aliases);
+            return array_merge($namesToWarn, $this->aliases);
         }
 
         return $namesToWarn;

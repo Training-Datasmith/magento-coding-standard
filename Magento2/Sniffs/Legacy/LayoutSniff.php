@@ -27,10 +27,8 @@ class LayoutSniff implements Sniff
 
     /**
      * List of obsolete references per handle
-     *
-     * @var array
      */
-    private $obsoleteReferences = [
+    private array $obsoleteReferences = [
         'adminhtml_user_edit' => [
             'adminhtml.permissions.user.edit.tabs',
             'adminhtml.permission.user.edit.tabs',
@@ -76,7 +74,7 @@ class LayoutSniff implements Sniff
      *
      * @var string[]
      */
-    private $allowedActionNodeMethods = [
+    private array $allowedActionNodeMethods = [
         'addBodyClass',
         'addButtons',
         'addColumnCountLayoutDepend',
@@ -208,7 +206,7 @@ class LayoutSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($stackPtr > 0) {
             return;
@@ -237,9 +235,6 @@ class LayoutSniff implements Sniff
 
     /**
      * Check for obsolete block references
-     *
-     * @param SimpleXMLElement $layout
-     * @param File $phpcsFile
      */
     private function testObsoleteReferences(SimpleXMLElement $layout, File $phpcsFile): void
     {
@@ -263,10 +258,9 @@ class LayoutSniff implements Sniff
     /**
      * Format the incoming XML to avoid tags split into several lines.
      *
-     * @param File $phpcsFile
      * @return false|string
      */
-    private function getFormattedXML(File $phpcsFile)
+    private function getFormattedXML(File $phpcsFile): string|false
     {
         $doc = new DomDocument('1.0');
         $doc->formatOutput = true;
@@ -276,9 +270,6 @@ class LayoutSniff implements Sniff
 
     /**
      * Check that the output attribute has the right value
-     *
-     * @param SimpleXMLElement $layout
-     * @param File $phpcsFile
      */
     private function testOutputAttribute(SimpleXMLElement $layout, File $phpcsFile): void
     {
@@ -294,10 +285,6 @@ class LayoutSniff implements Sniff
 
     /**
      * Returns attribute value by attribute name
-     *
-     * @param SimpleXMLElement $element
-     * @param string $name
-     * @return string|null
      */
     private function getAttribute(SimpleXMLElement $element, string $name): string
     {
@@ -307,21 +294,18 @@ class LayoutSniff implements Sniff
 
     /**
      * Check values in helper attributes
-     *
-     * @param SimpleXMLElement $layout
-     * @param File $phpcsFile
      */
     private function testHelperAttribute(SimpleXMLElement $layout, File $phpcsFile): void
     {
         foreach ($layout->xpath('//*[@helper]') as $action) {
-            if (strpos($this->getAttribute($action, 'helper'), '/') !== false) {
+            if (str_contains($this->getAttribute($action, 'helper'), '/')) {
                 $phpcsFile->addError(
                     "'helper' attribute contains '/'",
                     dom_import_simplexml($action)->getLineNo()-1,
                     self::ERROR_CODE_HELPER_ATTRIBUTE_CHARACTER_NOT_ALLOWED
                 );
             }
-            if (strpos($this->getAttribute($action, 'helper'), '::') === false) {
+            if (!str_contains($this->getAttribute($action, 'helper'), '::')) {
                 $phpcsFile->addError(
                     "'helper' attribute does not contain '::'",
                     dom_import_simplexml($action)->getLineNo()-1,
@@ -333,9 +317,6 @@ class LayoutSniff implements Sniff
 
     /**
      * Check that ListText is not used
-     *
-     * @param SimpleXMLElement $layout
-     * @param File $phpcsFile
      */
     private function testListText(SimpleXMLElement $layout, File $phpcsFile): void
     {
@@ -352,9 +333,6 @@ class LayoutSniff implements Sniff
 
     /**
      * Check that action is calling an allowed method
-     *
-     * @param SimpleXMLElement $layout
-     * @param File $phpcsFile
      */
     private function testActionNodeMethods(SimpleXMLElement $layout, File $phpcsFile): void
     {

@@ -16,17 +16,13 @@ class HtmlBindingSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_INLINE_HTML];
     }
 
     /**
      * Load HTML document to validate.
-     *
-     * @param int $stackPointer
-     * @param File $file
-     * @return \DOMDocument|null
      */
     private function loadHtmlDocument(int $stackPointer, File $file): ?\DOMDocument
     {
@@ -37,7 +33,7 @@ class HtmlBindingSniff implements Sniff
                 // phpcs:disable Generic.PHP.NoSilencedErrors
                 @$dom->loadHTML($html);
                 return $dom;
-            } catch (\Throwable $exception) {
+            } catch (\Throwable) {
                 return null;
             }
         }
@@ -50,7 +46,7 @@ class HtmlBindingSniff implements Sniff
      *
      * Find HTML data bindings and check variables used.
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if (!$dom = $this->loadHtmlDocument($stackPtr, $phpcsFile)) {
             return;
@@ -62,16 +58,16 @@ class HtmlBindingSniff implements Sniff
         $dataBindAttributes = $domXpath->query('//@*[name() = "data-bind"]');
         foreach ($dataBindAttributes as $dataBindAttribute) {
             $knockoutBinding = $dataBindAttribute->nodeValue;
-            preg_match('/^(.+\s*?)?html\s*?\:(.+)/ims', $knockoutBinding, $htmlBindingStart);
+            preg_match('/^(.+\s*?)?html\s*?\:(.+)/ims', (string) $knockoutBinding, $htmlBindingStart);
             if ($htmlBindingStart) {
-                $htmlBinding = trim(preg_replace('/\,[a-z0-9\_\s]+\:.+/ims', '', $htmlBindingStart[2]));
+                $htmlBinding = trim((string) preg_replace('/\,[a-z0-9\_\s]+\:.+/ims', '', $htmlBindingStart[2]));
                 $htmlBindings[] = $htmlBinding;
             }
         }
         $htmlAttributes = $domXpath->query('//@*[name() = "html"]');
         foreach ($htmlAttributes as $htmlAttribute) {
             $magentoBinding = $htmlAttribute->nodeValue;
-            $htmlBindings[] = trim($magentoBinding);
+            $htmlBindings[] = trim((string) $magentoBinding);
         }
         foreach ($htmlBindings as $htmlBinding) {
             if (!preg_match('/^[0-9\\\'\"]/ims', $htmlBinding)

@@ -28,7 +28,7 @@ class EscapeMethodsOnBlockClassSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_OBJECT_OPERATOR,
@@ -38,7 +38,7 @@ class EscapeMethodsOnBlockClassSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 

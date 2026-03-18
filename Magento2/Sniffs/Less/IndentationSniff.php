@@ -39,15 +39,12 @@ class IndentationSniff implements Sniff
      */
     public $maxIndentLevel = 3;
 
-    /**
-     * @var array
-     */
-    private $styleCodesToSkip = [T_ASPERAND, T_COLON, T_OPEN_PARENTHESIS, T_CLOSE_PARENTHESIS];
+    private array $styleCodesToSkip = [T_ASPERAND, T_COLON, T_OPEN_PARENTHESIS, T_CLOSE_PARENTHESIS];
 
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_OPEN_TAG];
     }
@@ -57,7 +54,7 @@ class IndentationSniff implements Sniff
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -88,7 +85,7 @@ class IndentationSniff implements Sniff
             }
 
             $expectedIndent = ($indentLevel * $this->indent);
-            if (!($expectedIndent > 0 && strpos($tokens[$i]['content'], $phpcsFile->eolChar) !== false)
+            if (!($expectedIndent > 0 && str_contains((string) $tokens[$i]['content'], $phpcsFile->eolChar))
                 && ($foundIndent !== $expectedIndent)
                 && (!in_array($tokens[$i + 1]['code'], $this->styleCodesToSkip))
             ) {

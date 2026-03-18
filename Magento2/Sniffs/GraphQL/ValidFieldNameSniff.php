@@ -15,7 +15,7 @@ class ValidFieldNameSniff extends AbstractGraphQLSniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_VARIABLE];
     }
@@ -23,7 +23,7 @@ class ValidFieldNameSniff extends AbstractGraphQLSniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $name   = $tokens[$stackPtr]['content'];

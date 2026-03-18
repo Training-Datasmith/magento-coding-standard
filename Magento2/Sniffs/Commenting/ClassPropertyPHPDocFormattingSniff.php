@@ -35,10 +35,7 @@ class ClassPropertyPHPDocFormattingSniff extends AbstractVariableSniff
         T_READONLY,
     ];
 
-    /**
-     * @var PHPDocFormattingValidator
-     */
-    private $PHPDocFormattingValidator;
+    private readonly \Magento2\Helpers\Commenting\PHPDocFormattingValidator $PHPDocFormattingValidator;
 
     /**
      * Constructs an ClassPropertyPHPDocFormattingSniff.
@@ -53,7 +50,7 @@ class ClassPropertyPHPDocFormattingSniff extends AbstractVariableSniff
     /**
      * @inheritDoc
      */
-    public function processMemberVar(File $phpcsFile, $stackPtr)
+    public function processMemberVar(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -130,7 +127,7 @@ class ClassPropertyPHPDocFormattingSniff extends AbstractVariableSniff
         ) !== true) {
             preg_match(
                 '`^((?:\|?(?:array\([^\)]*\)|[\\\\\[\]]+))*)( .*)?`i',
-                $tokens[($varAnnotationPosition + 2)]['content'],
+                (string) $tokens[($varAnnotationPosition + 2)]['content'],
                 $varParts
             );
             if ($varParts[1]) {
@@ -148,11 +145,6 @@ class ClassPropertyPHPDocFormattingSniff extends AbstractVariableSniff
 
     /**
      * Check if class has already have meaningful description before var tag
-     *
-     * @param File $phpcsFile
-     * @param int $propertyNamePosition
-     * @param int $varAnnotationPosition
-     * @param int $commentStart
      */
     private function processPropertyShortDescription(
         File $phpcsFile,
@@ -174,8 +166,8 @@ class ClassPropertyPHPDocFormattingSniff extends AbstractVariableSniff
         }
 
         $tokens = $phpcsFile->getTokens();
-        $propertyName = trim($tokens[$propertyNamePosition]['content'], '$');
-        $shortDescription = strtolower($tokens[$propertyShortDescriptionPosition]['content']);
+        $propertyName = trim((string) $tokens[$propertyNamePosition]['content'], '$');
+        $shortDescription = strtolower((string) $tokens[$propertyShortDescriptionPosition]['content']);
 
         if ($this->isDuplicate($propertyName, $shortDescription)) {
             $phpcsFile->addWarning(
@@ -188,10 +180,6 @@ class ClassPropertyPHPDocFormattingSniff extends AbstractVariableSniff
 
     /**
      * Does short description duplicate the property name
-     *
-     * @param string $propertyName
-     * @param string $shortDescription
-     * @return bool
      */
     private function isDuplicate(string $propertyName, string $shortDescription): bool
     {
@@ -200,13 +188,10 @@ class ClassPropertyPHPDocFormattingSniff extends AbstractVariableSniff
 
     /**
      * Return only A-Za-z characters converted to lowercase from the string
-     *
-     * @param string $string
-     * @return string
      */
     private function clean(string $string): string
     {
-        return strtolower(preg_replace('/[^A-Za-z]/', '', $string));
+        return strtolower((string) preg_replace('/[^A-Za-z]/', '', $string));
     }
 
     /**

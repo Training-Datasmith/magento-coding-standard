@@ -18,10 +18,9 @@ class Variable extends AbstractTokenizer
     /**
      * Tokenize string and return getted variable stack path
      *
-     * @return array
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
-    public function tokenize()
+    public function tokenize(): array
     {
         $actions = [];
         $parameterName = '';
@@ -30,7 +29,8 @@ class Variable extends AbstractTokenizer
             if ($this->isWhiteSpace()) {
                 // Ignore white spaces
                 continue;
-            } elseif ($this->char() != '.' && $this->char() != '(') {
+            }
+            if ($this->char() != '.' && $this->char() != '(') {
                 // Property or method name
                 $parameterName .= $this->char();
             } elseif ($this->char() == '(') {
@@ -63,10 +63,8 @@ class Variable extends AbstractTokenizer
 
     /**
      * Get string value for method args
-     *
-     * @return string
      */
-    public function getString()
+    public function getString(): string
     {
         $value = '';
         if ($this->isWhiteSpace()) {
@@ -100,10 +98,8 @@ class Variable extends AbstractTokenizer
 
     /**
      * Get array member key or return false if none present
-     *
-     * @return bool|string
      */
-    public function getMemberKey()
+    public function getMemberKey(): string|false
     {
         $value = '';
         if ($this->isWhiteSpace()) {
@@ -156,10 +152,8 @@ class Variable extends AbstractTokenizer
      * [key:value, "key2":"value2", [
      *     [123, foo],
      * ]]
-     *
-     * @return array
      */
-    public function getArray()
+    public function getArray(): array
     {
         $values = [];
         if (!$this->isArray()) {
@@ -234,44 +228,40 @@ class Variable extends AbstractTokenizer
 
     /**
      * Return true if current char is a number
-     *
-     * @return boolean
      */
-    public function isNumeric()
+    public function isNumeric(): bool
     {
         return $this->char() >= '0' && $this->char() <= '9';
     }
 
     /**
      * Return true if current char is quote or apostrophe
-     *
-     * @return boolean
      */
-    public function isQuote()
+    public function isQuote(): bool
     {
-        return $this->char() == '"' || $this->char() == "'";
+        if ($this->char() == '"') {
+            return true;
+        }
+        return $this->char() == "'";
     }
 
     /**
      * Retrun true if current char is opening boundary for an array
-     *
-     * @return bool
      */
-    public function isArray()
+    public function isArray(): bool
     {
         return $this->char() == '[';
     }
 
     /**
      * Return true if current char is closing boundary for string
-     *
-     * @return bool
      */
-    public function isStringBreak()
+    public function isStringBreak(): bool
     {
         if ($this->getArrayDepth() == 0 && ($this->isWhiteSpace() || $this->char() == ',' || $this->char() == ')')) {
             return true;
-        } elseif ($this->getArrayDepth() > 0 && ($this->char() == ',' || $this->char() == ']')) {
+        }
+        if ($this->getArrayDepth() > 0 && ($this->char() == ',' || $this->char() == ']')) {
             return true;
         }
 
@@ -280,21 +270,24 @@ class Variable extends AbstractTokenizer
 
     /**
      * Return array of arguments for method
-     *
-     * @return array
      */
-    public function getMethodArgs()
+    public function getMethodArgs(): array
     {
         $value = [];
 
         while ($this->next() && $this->char() != ')') {
-            if ($this->isWhiteSpace() || $this->char() == ',') {
+            if ($this->isWhiteSpace()) {
                 continue;
-            } elseif ($this->isNumeric()) {
+            }
+            if ($this->char() == ',') {
+                continue;
+            }
+            if ($this->isNumeric()) {
                 $value[] = $this->getNumber();
             } elseif ($this->isArray()) {
                 $value[] = $this->getArray();
-            } else {
+            }
+            else {
                 $value[] = $this->getString();
             }
         }
@@ -304,10 +297,8 @@ class Variable extends AbstractTokenizer
 
     /**
      * Return number value for method args
-     *
-     * @return float
      */
-    public function getNumber()
+    public function getNumber(): float
     {
         $value = $this->char();
         while (($this->isNumeric() || $this->char() == '.') && $this->next()) {

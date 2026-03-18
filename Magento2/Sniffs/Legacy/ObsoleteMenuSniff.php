@@ -16,10 +16,7 @@ class ObsoleteMenuSniff implements Sniff
 {
     private const WARNING_OBSOLETE_MENU_STRUCTURE = 'ObsoleteMenuStructure';
     
-    /**
-     * @var string
-     */
-    private $xpath = '/config/menu/*[boolean(./children) or boolean(./title) or boolean(./action)]';
+    private string $xpath = '/config/menu/*[boolean(./children) or boolean(./title) or boolean(./action)]';
 
     /**
      * @inheritdoc
@@ -34,7 +31,7 @@ class ObsoleteMenuSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($stackPtr > 0) {
             return;
@@ -54,10 +51,9 @@ class ObsoleteMenuSniff implements Sniff
     /**
      * Format the incoming XML to avoid tags split into several lines.
      *
-     * @param File $phpcsFile
      * @return false|string
      */
-    private function getFormattedXML(File $phpcsFile)
+    private function getFormattedXML(File $phpcsFile): string|false
     {
         $doc = new DomDocument('1.0');
         $doc->formatOutput = true;

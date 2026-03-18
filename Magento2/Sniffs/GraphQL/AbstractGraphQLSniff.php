@@ -46,7 +46,6 @@ abstract class AbstractGraphQLSniff implements Sniff
     /**
      * Returns the pointer to the last token of a directive if the token at <var>$startPointer</var> starts a directive.
      *
-     * @param array $tokens
      * @param int $startPointer
      * @return int The end of the directive if one is found, the start pointer otherwise
      */
@@ -72,7 +71,6 @@ abstract class AbstractGraphQLSniff implements Sniff
      * <var>$startPointer</var> (excluded).
      *
      * @param mixed $tokenCode
-     * @param array $tokens
      * @param int $startPointer
      * @return bool|int If token was found, returns its pointer, <kbd>false</kbd> otherwise
      */

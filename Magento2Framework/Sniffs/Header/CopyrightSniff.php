@@ -19,7 +19,7 @@ class CopyrightSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_OPEN_TAG];
     }
@@ -27,7 +27,7 @@ class CopyrightSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($phpcsFile->findPrevious(T_OPEN_TAG, $stackPtr - 1) !== false) {
             return;

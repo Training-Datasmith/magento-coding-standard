@@ -16,15 +16,9 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  */
 class MethodAnnotationStructureSniff implements Sniff
 {
-    /**
-     * @var AnnotationFormatValidator
-     */
-    private $annotationFormatValidator;
+    private readonly \Magento2\Sniffs\Annotation\AnnotationFormatValidator $annotationFormatValidator;
 
-    /**
-     * @var PHPDocFormattingValidator
-     */
-    private $PHPDocFormattingValidator;
+    private readonly \Magento2\Helpers\Commenting\PHPDocFormattingValidator $PHPDocFormattingValidator;
 
     /**
      * AnnotationStructureSniff constructor.
@@ -38,7 +32,7 @@ class MethodAnnotationStructureSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_FUNCTION
@@ -48,7 +42,7 @@ class MethodAnnotationStructureSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $commentEndPtr = $stackPtr;
@@ -90,7 +84,7 @@ class MethodAnnotationStructureSniff implements Sniff
 
         $commentCloserPtr = $tokens[$commentStartPtr]['comment_closer'];
         $functionPtrContent = $tokens[$stackPtr + 2]['content'];
-        if (preg_match('/(?i)__construct/', $functionPtrContent)) {
+        if (preg_match('/(?i)__construct/', (string) $functionPtrContent)) {
             return;
         }
         $emptyTypeTokens = [

@@ -31,7 +31,7 @@ class VariablesSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_ASPERAND];
     }
@@ -39,7 +39,7 @@ class VariablesSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $currentToken = $tokens[$stackPtr];
@@ -69,7 +69,7 @@ class VariablesSniff implements Sniff
         }
 
         $variableName = $tokens[$stackPtr + 1]['content'];
-        if (preg_match('/[A-Z]/', $variableName)) {
+        if (preg_match('/[A-Z]/', (string) $variableName)) {
             $phpcsFile->addError(
                 'Variable declaration contains uppercase symbols',
                 $stackPtr,

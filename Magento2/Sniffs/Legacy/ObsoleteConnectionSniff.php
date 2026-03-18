@@ -15,7 +15,7 @@ class ObsoleteConnectionSniff implements Sniff
     /**
      * @var string[]
      */
-    private $obsoleteMethods = [
+    private array $obsoleteMethods = [
         '_getReadConnection',
         '_getWriteConnection',
         '_getReadAdapter',
@@ -31,7 +31,7 @@ class ObsoleteConnectionSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_OBJECT_OPERATOR,
@@ -42,18 +42,15 @@ class ObsoleteConnectionSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, int $stackPtr): void
     {
         $this->validateObsoleteMethod($phpcsFile, $stackPtr);
     }
 
     /**
      * Check if obsolete methods are used
-     *
-     * @param File $phpcsFile
-     * @param int $stackPtr
      */
-    private function validateObsoleteMethod(File $phpcsFile, int $stackPtr)
+    private function validateObsoleteMethod(File $phpcsFile, int $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $stringPos = $phpcsFile->findNext(T_STRING, $stackPtr + 1);

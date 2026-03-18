@@ -23,10 +23,7 @@ class ZeroUnitsSniff implements Sniff
     private const CSS_PROPERTY_UNIT_EM = 'em';
     private const CSS_PROPERTY_UNIT_REM = 'rem';
 
-    /**
-     * @var array
-     */
-    private $units = [
+    private array $units = [
         self::CSS_PROPERTY_UNIT_PX,
         self::CSS_PROPERTY_UNIT_EM,
         self::CSS_PROPERTY_UNIT_REM,
@@ -42,7 +39,7 @@ class ZeroUnitsSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_LNUMBER, T_DNUMBER];
     }
@@ -50,7 +47,7 @@ class ZeroUnitsSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $tokenCode = $tokens[$stackPtr]['code'];
@@ -67,7 +64,7 @@ class ZeroUnitsSniff implements Sniff
         }
 
         if ((T_DNUMBER === $tokenCode)
-            && 0 === strpos($tokenContent, "0")
+            && str_starts_with((string) $tokenContent, "0")
             && ((float)$tokenContent < 1)
         ) {
             $phpcsFile->addError('Values starts from "0"', $stackPtr, 'ZeroUnitFound');

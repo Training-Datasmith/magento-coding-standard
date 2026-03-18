@@ -43,7 +43,7 @@ class CommentLevelsSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_STRING];
     }
@@ -51,7 +51,7 @@ class CommentLevelsSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -90,12 +90,9 @@ class CommentLevelsSniff implements Sniff
     /**
      * Validate that inline comment responds to given requirements
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
-     * @return bool
      */
-    private function validateInlineComment(File $phpcsFile, $stackPtr, array $tokens)
+    private function validateInlineComment(File $phpcsFile, $stackPtr, array $tokens): void
     {
         if ($tokens[$stackPtr + 1]['content'] !== TokenizerSymbolsInterface::WHITESPACE) {
             $phpcsFile->addError('Inline comment should have 1 space after "//"', $stackPtr, 'SpaceMissedAfter');
@@ -108,12 +105,9 @@ class CommentLevelsSniff implements Sniff
     /**
      * Check is it n-th level comment was found
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
-     * @return bool
      */
-    private function isNthLevelComment(File $phpcsFile, $stackPtr, array $tokens)
+    private function isNthLevelComment(File $phpcsFile, $stackPtr, array $tokens): bool
     {
         $nthLevelCommentFound = false;
         $levelComment = 0;
@@ -143,9 +137,7 @@ class CommentLevelsSniff implements Sniff
     /**
      * Check is it n-th level comment is correct
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
      * @return bool
      */
     private function checkNthLevelComment(File $phpcsFile, $stackPtr, array $tokens)
@@ -191,10 +183,6 @@ class CommentLevelsSniff implements Sniff
 
     /**
      * Validation of comment level.
-     *
-     * @param File $phpcsFile
-     * @param int $stackPtr
-     * @param array $tokens
      */
     private function validateCommentLevel(File $phpcsFile, int $stackPtr, array $tokens): void
     {

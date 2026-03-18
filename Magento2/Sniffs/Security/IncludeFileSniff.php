@@ -40,7 +40,7 @@ class IncludeFileSniff implements Sniff
      * @inheritdoc
      * phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         // phpcs:enable
         $tokens = $phpcsFile->getTokens();
@@ -60,7 +60,7 @@ class IncludeFileSniff implements Sniff
             $tokens[$nextToken]['code'] !== T_CLOSE_TAG) {
             switch ($tokens[$nextToken]['code']) {
                 case T_CONSTANT_ENCAPSED_STRING:
-                    $includePath = trim($tokens[$nextToken]['content'], '"\'');
+                    $includePath = trim((string) $tokens[$nextToken]['content'], '"\'');
                     if (preg_match($this->urlPattern, $includePath)) {
                         $isUrl = true;
                     }
@@ -79,7 +79,7 @@ class IncludeFileSniff implements Sniff
             if ($nextToken) {
                 $nextToken = $phpcsFile->findNext(Tokens::$emptyTokens, $nextToken + 1, null, true);
                 $className = $tokens[$nextToken]['content'];
-                if (strripos($className, 'controller') !== false) {
+                if (strripos((string) $className, 'controller') !== false) {
                     return;
                 }
             }

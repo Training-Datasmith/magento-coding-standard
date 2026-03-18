@@ -12,10 +12,8 @@ class Parameter extends AbstractTokenizer
 {
     /**
      * Tokenize string and return getted parameters
-     *
-     * @return array
      */
-    public function tokenize()
+    public function tokenize(): array
     {
         $parameters = [];
         $parameterName = '';
@@ -37,10 +35,9 @@ class Parameter extends AbstractTokenizer
     /**
      * Get string value in parameters through tokenize
      *
-     * @return string
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
-    public function getValue()
+    public function getValue(): string
     {
         $this->next();
         $value = '';

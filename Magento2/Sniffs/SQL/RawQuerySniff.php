@@ -52,14 +52,14 @@ class RawQuerySniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return array_merge(Tokens::$stringTokens, [T_HEREDOC, T_NOWDOC]);
     }
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $ignoredTokens = array_merge([T_WHITESPACE, T_OPEN_PARENTHESIS], Tokens::$stringTokens);
@@ -68,16 +68,14 @@ class RawQuerySniff implements Sniff
             || ($prev['code'] === T_STRING && in_array($prev['content'], $this->queryFunctions))
             || in_array($tokens[$stackPtr]['code'], [T_HEREDOC, T_NOWDOC])
         ) {
-            $trim = function ($str) {
-                return trim(str_replace(['\'', '"'], '', $str));
-            };
+            $trim = (fn($str) => trim(str_replace(['\'', '"'], '', $str)));
 
             if (preg_match('/^(' . implode('|', $this->statements) . ')\s/i', $trim($tokens[$stackPtr]['content']))) {
                 $phpcsFile->addWarning(
                     $this->warningMessage,
                     $stackPtr,
                     $this->warningCode,
-                    [trim($tokens[$stackPtr]['content'])]
+                    [trim((string) $tokens[$stackPtr]['content'])]
                 );
             }
         }

@@ -29,7 +29,7 @@ class BracesFormattingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_OPEN_CURLY_BRACKET, T_CLOSE_CURLY_BRACKET];
     }
@@ -37,7 +37,7 @@ class BracesFormattingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 

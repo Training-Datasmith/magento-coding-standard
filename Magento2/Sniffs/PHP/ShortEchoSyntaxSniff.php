@@ -17,7 +17,7 @@ class ShortEchoSyntaxSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_OPEN_TAG];
     }
@@ -25,7 +25,7 @@ class ShortEchoSyntaxSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens  = $phpcsFile->getTokens();
         $openTag = $tokens[$stackPtr];

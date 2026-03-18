@@ -13,20 +13,12 @@ use PHP_CodeSniffer\Files\File;
  */
 class LiteralNamespacesSniff implements Sniff
 {
-    /**
-     * @var string
-     */
-    private $literalNamespacePattern = '/^[\\\]{0,2}[A-Z][A-Za-z]+([\\\]{1,2}[A-Z][A-Za-z]+){2,}(?!\\\+)$/';
-
-    /**
-     * @var array
-     */
-    private $classNames = [];
+    private string $literalNamespacePattern = '/^[\\\]{0,2}[A-Z][A-Za-z]+([\\\]{1,2}[A-Z][A-Za-z]+){2,}(?!\\\+)$/';
 
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_CONSTANT_ENCAPSED_STRING,
@@ -37,7 +29,7 @@ class LiteralNamespacesSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         if ($phpcsFile->findPrevious(T_STRING_CONCAT, $stackPtr, $stackPtr - 3) ||
@@ -46,13 +38,13 @@ class LiteralNamespacesSniff implements Sniff
             return;
         }
 
-        $content = trim($tokens[$stackPtr]['content'], "\"'");
+        $content = trim((string) $tokens[$stackPtr]['content'], "\"'");
         // replace double slashes from class name for avoiding problems with class autoload
-        if (strpos($content, '\\') !== false) {
+        if (str_contains($content, '\\')) {
             $content = preg_replace('|\\\{2,}|', '\\', $content);
         }
 
-        if (preg_match($this->literalNamespacePattern, $content) === 1) {
+        if (preg_match($this->literalNamespacePattern, (string) $content) === 1) {
             $phpcsFile->addWarning(
                 "Use ::class notation instead.",
                 $stackPtr,

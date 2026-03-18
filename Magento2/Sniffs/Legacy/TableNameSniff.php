@@ -17,10 +17,8 @@ class TableNameSniff implements Sniff
 {
     /**
      * Methods which receive table names as parameters, with the argument position in which table names are passed
-     *
-     * @var array
      */
-    private $argPositionInMethods = [
+    private array $argPositionInMethods = [
         'getTableName' => [0],
         '_setMainTable' => [0],
         'setMainTable' => [0],
@@ -55,7 +53,7 @@ class TableNameSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_OBJECT_OPERATOR,
@@ -67,7 +65,7 @@ class TableNameSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_OBJECT_OPERATOR) {
@@ -81,9 +79,6 @@ class TableNameSniff implements Sniff
 
     /**
      * Check if passed file is a resource but not a collection
-     *
-     * @param string $filePath
-     * @return bool
      */
     private function isResourceButNotCollection(string $filePath): bool
     {
@@ -94,10 +89,6 @@ class TableNameSniff implements Sniff
 
     /**
      * Check references to table names in methods
-     *
-     * @param File $phpcsFile
-     * @param int $stackPtr
-     * @param array $tokens
      */
     private function checkOccurrencesInMethods(File $phpcsFile, int $stackPtr, array $tokens): void
     {
@@ -117,7 +108,7 @@ class TableNameSniff implements Sniff
                     $phpcsFile->findNext(T_CLOSE_PARENTHESIS, $paramPos + 1)
                 );
             }
-            if (strpos($tokens[$paramPos]['content'], '/') !== false) {
+            if (str_contains((string) $tokens[$paramPos]['content'], '/')) {
                 $phpcsFile->addError(
                     sprintf(
                         self::ERROR_MESSAGE,
@@ -135,7 +126,7 @@ class TableNameSniff implements Sniff
             }
 
             $paramPos = $phpcsFile->findNext(T_PARAM_NAME, $stackPtr + 1);
-            if (strpos($tokens[$paramPos]['content'], '/') !== false) {
+            if (str_contains((string) $tokens[$paramPos]['content'], '/')) {
                 $phpcsFile->addError(
                     sprintf(
                         self::ERROR_MESSAGE,
@@ -150,10 +141,6 @@ class TableNameSniff implements Sniff
 
     /**
      * Check references to table names in the $_aggregationTable property
-     *
-     * @param File $phpcsFile
-     * @param int $stackPtr
-     * @param array $tokens
      */
     private function checkOccurrencesInProperty(File $phpcsFile, int $stackPtr, array $tokens): void
     {
@@ -167,7 +154,7 @@ class TableNameSniff implements Sniff
             $phpcsFile->findEndOfStatement($stackPtr + 1)
         );
 
-        if (strpos($tokens[$tableNamePos]['content'], '/') !== false) {
+        if (str_contains((string) $tokens[$tableNamePos]['content'], '/')) {
             $phpcsFile->addError(
                 sprintf(
                     self::ERROR_MESSAGE,
@@ -181,10 +168,6 @@ class TableNameSniff implements Sniff
 
     /**
      * Check references to table names in arrays
-     *
-     * @param File $phpcsFile
-     * @param int $stackPtr
-     * @param array $tokens
      */
     private function checkOccurrencesInArray(File $phpcsFile, int $stackPtr, array $tokens): void
     {
@@ -195,7 +178,7 @@ class TableNameSniff implements Sniff
             true,
         );
 
-        $alias = trim($tokens[$aliasPos]['content'], '\'"');
+        $alias = trim((string) $tokens[$aliasPos]['content'], '\'"');
 
         if ($this->endsWith($alias, '_table') === false) {
             return;
@@ -206,7 +189,7 @@ class TableNameSniff implements Sniff
             $aliasPos + 1
         );
 
-        if (strpos($tokens[$tableNamePos]['content'], '/') !== false) {
+        if (str_contains((string) $tokens[$tableNamePos]['content'], '/')) {
             $phpcsFile->addError(
                 sprintf(
                     self::ERROR_MESSAGE,
@@ -220,10 +203,6 @@ class TableNameSniff implements Sniff
 
     /**
      * Checks if $haystack ends with $needle
-     *
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
     private function endsWith(string $haystack, string $needle): bool
     {

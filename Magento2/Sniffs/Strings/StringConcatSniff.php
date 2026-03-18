@@ -31,7 +31,7 @@ class StringConcatSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_PLUS];
     }
@@ -39,7 +39,7 @@ class StringConcatSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $prev = $phpcsFile->findPrevious(T_WHITESPACE, $stackPtr - 1, null, true);

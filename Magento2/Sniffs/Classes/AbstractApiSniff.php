@@ -31,7 +31,7 @@ class AbstractApiSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_CLASS];
     }
@@ -39,7 +39,7 @@ class AbstractApiSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $prev = $phpcsFile->findPrevious(T_WHITESPACE, $stackPtr - 1, null, true);
@@ -60,7 +60,7 @@ class AbstractApiSniff implements Sniff
                 continue;
             }
 
-            if (strpos($token['content'], '@api') === false) {
+            if (!str_contains((string) $token['content'], '@api')) {
                 continue;
             }
 

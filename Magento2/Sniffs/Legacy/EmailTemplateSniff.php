@@ -37,11 +37,11 @@ class EmailTemplateSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $content = $phpcsFile->getTokens()[$stackPtr]['content'];
         foreach (self::OBSOLETE_EMAIL_DIRECTIVES as $code => $data) {
-            if (preg_match($data['pattern'], $content)) {
+            if (preg_match($data['pattern'], (string) $content)) {
                 $phpcsFile->addError(
                     $data['message'],
                     $stackPtr,

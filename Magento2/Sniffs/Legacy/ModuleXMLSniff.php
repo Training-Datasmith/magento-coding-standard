@@ -31,7 +31,7 @@ class ModuleXMLSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($stackPtr > 0) {
             return;
@@ -80,10 +80,9 @@ class ModuleXMLSniff implements Sniff
     /**
      * Format the incoming XML to avoid tags split into several lines.
      *
-     * @param File $phpcsFile
      * @return false|string
      */
-    private function getFormattedXML(File $phpcsFile)
+    private function getFormattedXML(File $phpcsFile): string|false
     {
         $doc = new DomDocument('1.0');
         $doc->formatOutput = true;

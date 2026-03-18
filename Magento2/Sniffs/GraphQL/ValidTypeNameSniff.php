@@ -17,7 +17,7 @@ class ValidTypeNameSniff extends AbstractGraphQLSniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_CLASS, T_INTERFACE];
     }
@@ -25,7 +25,7 @@ class ValidTypeNameSniff extends AbstractGraphQLSniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -38,7 +38,7 @@ class ValidTypeNameSniff extends AbstractGraphQLSniff
         $valid = Common::isCamelCaps($name, true, true, false);
 
         if ($valid === false) {
-            $type  = ucfirst($tokens[$stackPtr]['content']);
+            $type  = ucfirst((string) $tokens[$stackPtr]['content']);
             $error = '%s name "%s" is not in PascalCase format';
             $data  = [
                 $type,

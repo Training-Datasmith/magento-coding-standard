@@ -19,7 +19,6 @@ final class Cache
     /**
      * Wrapper for \PHPCSUtils\Internal\Cache::isCached() method.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile
      * @param string $key
      * @param int|string $id
      *
@@ -34,7 +33,6 @@ final class Cache
     /**
      * Wrapper for \PHPCSUtils\Internal\Cache::get() method.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile
      * @param string $key
      * @param int|string $id
      *
@@ -49,7 +47,6 @@ final class Cache
     /**
      * Wrapper for \PHPCSUtils\Internal\Cache::getForFile() method.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile
      * @param string $key
      * @return array
      * @see \PHPCSUtils\Internal\Cache::getForFile()
@@ -62,14 +59,12 @@ final class Cache
     /**
      * Wrapper for \PHPCSUtils\Internal\Cache::set() method.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile
      * @param string $key
      * @param int|string $id
      * @param mixed $value
-     * @return void
      * @see \PHPCSUtils\Internal\Cache::set()
      */
-    public static function set(File $phpcsFile, $key, $id, $value)
+    public static function set(File $phpcsFile, $key, $id, $value): void
     {
         \PHPCSUtils\Internal\Cache::set($phpcsFile, $key, $id, $value);
     }
@@ -77,10 +72,9 @@ final class Cache
     /**
      * Wrapper for \PHPCSUtils\Internal\Cache::clear() method.
      *
-     * @return void
      * @see \PHPCSUtils\Internal\Cache::clear()
      */
-    public static function clear()
+    public static function clear(): void
     {
         \PHPCSUtils\Internal\Cache::clear();
     }

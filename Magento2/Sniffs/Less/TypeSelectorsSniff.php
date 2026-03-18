@@ -22,10 +22,7 @@ use PHP_CodeSniffer\Files\File;
  */
 class TypeSelectorsSniff implements Sniff
 {
-    /**
-     * @var array
-     */
-    private $tags = [
+    private array $tags = [
         'a', 'abbr', 'acronym', 'address', 'area', 'b', 'base', 'bdo',
         'big', 'blockquote', 'body', 'br', 'button', 'caption', 'cite',
         'code', 'col', 'colgroup', 'dd', 'del', 'div', 'dfn', 'dl',
@@ -55,7 +52,7 @@ class TypeSelectorsSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_STRING_CONCAT];
     }
@@ -63,7 +60,7 @@ class TypeSelectorsSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -73,7 +70,7 @@ class TypeSelectorsSniff implements Sniff
             return;
         }
 
-        $isBracketOnSameLane = (bool)($tokens[$bracketPtr]['line'] === $tokens[$stackPtr]['line']);
+        $isBracketOnSameLane = $tokens[$bracketPtr]['line'] === $tokens[$stackPtr]['line'];
 
         if (!$isBracketOnSameLane) {
             return;
@@ -88,7 +85,7 @@ class TypeSelectorsSniff implements Sniff
         }
 
         for ($i = $stackPtr; $i < $bracketPtr; $i++) {
-            if (preg_match('/[A-Z]/', $tokens[$i]['content'])) {
+            if (preg_match('/[A-Z]/', (string) $tokens[$i]['content'])) {
                 $phpcsFile->addError('Selector contains uppercase symbols', $stackPtr, 'UpperCaseSelector');
             }
         }

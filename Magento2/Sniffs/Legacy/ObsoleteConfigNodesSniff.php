@@ -18,7 +18,7 @@ class ObsoleteConfigNodesSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_INLINE_HTML,
@@ -28,7 +28,7 @@ class ObsoleteConfigNodesSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($stackPtr > 0) {
             return;
@@ -71,10 +71,9 @@ class ObsoleteConfigNodesSniff implements Sniff
     /**
      * Format the incoming XML to avoid tags split into several lines.
      *
-     * @param File $phpcsFile
      * @return false|string
      */
-    private function getFormattedXML(File $phpcsFile)
+    private function getFormattedXML(File $phpcsFile): string|false
     {
         $doc = new DomDocument('1.0');
         $doc->formatOutput = true;
@@ -84,8 +83,6 @@ class ObsoleteConfigNodesSniff implements Sniff
 
     /**
      * Get a list of obsolete nodes in the format <class_name> => <replacement>
-     *
-     * @return array
      */
     private function getObsoleteNodes(): array
     {

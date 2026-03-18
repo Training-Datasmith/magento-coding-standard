@@ -29,21 +29,19 @@ class EmptyBlockSniff extends EmptyStatementSniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_FUNCTION &&
-            strpos($phpcsFile->getDeclarationName($stackPtr), 'around') === 0) {
+            str_starts_with($phpcsFile->getDeclarationName($stackPtr), 'around')) {
             return;
         }
 
         // Ignore empty constructor function blocks when using property promotion
         if ($tokens[$stackPtr]['code'] === T_FUNCTION &&
-            strpos($phpcsFile->getDeclarationName($stackPtr), '__construct') === 0 &&
+            str_starts_with($phpcsFile->getDeclarationName($stackPtr), '__construct') &&
             count($phpcsFile->getMethodParameters($stackPtr)) > 0 &&
-            array_reduce($phpcsFile->getMethodParameters($stackPtr), static function ($result, $methodParam) {
-                return $result && isset($methodParam['property_visibility']);
-            }, true)) {
+            array_reduce($phpcsFile->getMethodParameters($stackPtr), static fn(bool $result, $methodParam) => $result && isset($methodParam['property_visibility']), true)) {
 
             return;
         }

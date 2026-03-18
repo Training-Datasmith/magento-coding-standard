@@ -22,7 +22,7 @@ class HtmlSelfClosingTagsSniff implements Sniff
      *
      * @var string[]
      */
-    private $voidElements = [
+    private array $voidElements = [
         'area',
         'base',
         'br',
@@ -44,7 +44,7 @@ class HtmlSelfClosingTagsSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_INLINE_HTML];
     }
@@ -52,11 +52,9 @@ class HtmlSelfClosingTagsSniff implements Sniff
     /**
      * Detect use of self-closing tag with non-void html element
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @return int|void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($stackPtr !== 0) {
             return;

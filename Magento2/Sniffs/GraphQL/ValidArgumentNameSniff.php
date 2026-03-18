@@ -18,7 +18,7 @@ class ValidArgumentNameSniff extends AbstractGraphQLSniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_VARIABLE];
     }
@@ -79,10 +79,9 @@ class ValidArgumentNameSniff extends AbstractGraphQLSniff
      * </pre>
      *
      * @param int $argumentDefinitionStartPointer
-     * @param array $tokens
      * @return int
      */
-    private function getArgumentDefinitionEndPointer($argumentDefinitionStartPointer, array $tokens)
+    private function getArgumentDefinitionEndPointer(int|float|null $argumentDefinitionStartPointer, array $tokens)
     {
         $endPointer = $this->seekToken(T_COLON, $tokens, $argumentDefinitionStartPointer);
 
@@ -117,7 +116,6 @@ class ValidArgumentNameSniff extends AbstractGraphQLSniff
      * Returns the closing parenthesis for the token found at <var>$openParenthesisPointer</var> in <var>$tokens</var>.
      *
      * @param int $openParenthesisPointer
-     * @param array $tokens
      * @return bool|int
      */
     private function getArgumentListClosePointer($openParenthesisPointer, array $tokens)
@@ -133,10 +131,8 @@ class ValidArgumentNameSniff extends AbstractGraphQLSniff
      * that comes directly after <var>$stackPointer</var> token.
      *
      * @param int $stackPointer
-     * @param array $tokens
-     * @return bool|int
      */
-    private function getArgumentListOpenPointer($stackPointer, array $tokens)
+    private function getArgumentListOpenPointer($stackPointer, array $tokens): false|int
     {
         //get next open parenthesis pointer or bail out if none was found
         $openParenthesisPointer = $this->seekToken(T_OPEN_PARENTHESIS, $tokens, $stackPointer);
@@ -161,10 +157,9 @@ class ValidArgumentNameSniff extends AbstractGraphQLSniff
      *
      * @param int $startPointer
      * @param int $endPointer
-     * @param array $tokens
      * @return array<int, string>
      */
-    private function getArguments($startPointer, $endPointer, array $tokens)
+    private function getArguments($startPointer, $endPointer, array $tokens): array
     {
         $argumentTokenPointer = null;
         $argument             = '';

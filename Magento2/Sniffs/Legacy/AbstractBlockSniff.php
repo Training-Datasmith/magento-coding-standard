@@ -31,7 +31,7 @@ class AbstractBlockSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if (!isset($phpcsFile->getTokens()[$stackPtr + 1]['content'])) {
             return;
@@ -62,9 +62,6 @@ class AbstractBlockSniff implements Sniff
 
     /**
      * Return if it is applicable to do the check
-     *
-     * @param string $content
-     * @return bool
      */
     private function isApplicable(string $content): bool
     {
@@ -73,10 +70,6 @@ class AbstractBlockSniff implements Sniff
 
     /**
      * Get the quantity of parameters on a method
-     *
-     * @param File $phpcsFile
-     * @param int $methodHtmlPosition
-     * @return int
      */
     private function getParametersCount(File $phpcsFile, int $methodHtmlPosition): int
     {

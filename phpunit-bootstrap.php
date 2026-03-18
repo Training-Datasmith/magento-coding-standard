@@ -20,8 +20,8 @@ if (!defined('T_READONLY')) {
  * Run for PHP < 8.4 so we preempt PHPCS; on 8.4+ the engine may define them. Must run before
  * php_codesniffer/tests/bootstrap.php (and any Rector/php-parser code).
  */
-$phpMajor = (int) PHP_MAJOR_VERSION;
-$phpMinor = (int) PHP_MINOR_VERSION;
+$phpMajor = PHP_MAJOR_VERSION;
+$phpMinor = PHP_MINOR_VERSION;
 $needsTokenPolyfill = ($phpMajor < 8) || ($phpMajor === 8 && $phpMinor < 4);
 if ($needsTokenPolyfill) {
     $php84Tokens = [

@@ -47,7 +47,7 @@ class MageEntitySniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_DOUBLE_COLON,
@@ -67,7 +67,7 @@ class MageEntitySniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         if (in_array($tokens[$stackPtr]['code'], $this->nameBefore)) {
@@ -101,12 +101,11 @@ class MageEntitySniff implements Sniff
      * Method checks if passed string contains legacy prefix from Magento 1.
      *
      * @param string $entityName
-     * @return bool
      */
-    private function isPrefixLegacy($entityName)
+    private function isPrefixLegacy($entityName): bool
     {
         foreach ($this->legacyPrefixes as $entity) {
-            if (strpos($entityName, $entity) === 0) {
+            if (str_starts_with($entityName, (string) $entity)) {
                 return true;
             }
         }

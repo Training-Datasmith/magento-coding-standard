@@ -16,7 +16,7 @@ class HtmlCollapsibleAttributeSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_INLINE_HTML];
     }
@@ -26,11 +26,9 @@ class HtmlCollapsibleAttributeSniff implements Sniff
      *
      * Use new attributes in https://getbootstrap.com/docs/5.0/components/collapse/
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @return int|void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($stackPtr !== 0) {
             return;

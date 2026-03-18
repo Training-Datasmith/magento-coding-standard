@@ -52,10 +52,8 @@ class PHPDocFormattingValidator
      *
      * @param int $namePtr
      * @param int $commentStartPtr
-     * @param array $tokens
-     * @return bool
      */
-    public function providesMeaning($namePtr, $commentStartPtr, $tokens)
+    public function providesMeaning($namePtr, $commentStartPtr, array $tokens): bool
     {
         $commentCloserPtr = $tokens[$commentStartPtr]['comment_closer'];
         $name = strtolower(str_replace([' ', '"', '_'], '', $tokens[$namePtr]['content']));
@@ -85,7 +83,7 @@ class PHPDocFormattingValidator
             $hasDescription = true;
 
             // Comment is the same as the origin name
-            $docComment = str_replace(['_', ' ', '.', ','], '', strtolower($token['content']));
+            $docComment = str_replace(['_', ' ', '.', ','], '', strtolower((string) $token['content']));
             if ($docComment === $name) {
                 continue;
             }
@@ -112,10 +110,9 @@ class PHPDocFormattingValidator
      * In case comment has deprecated tag, it must be explained and followed by see tag with details
      *
      * @param int $commentStartPtr
-     * @param array $tokens
      * @return bool
      */
-    public function hasDeprecatedWellFormatted($commentStartPtr, $tokens)
+    public function hasDeprecatedWellFormatted($commentStartPtr, array $tokens)
     {
         $deprecatedPtr = $this->getTagPosition('@deprecated', $commentStartPtr, $tokens);
         if ($deprecatedPtr === -1) {
@@ -125,7 +122,7 @@ class PHPDocFormattingValidator
         if ($seePtr === -1) {
             if (preg_match(
                 "/This [a-zA-Z]* will be removed in version \d.\d.\d without replacement/",
-                $tokens[$deprecatedPtr + 2]['content']
+                (string) $tokens[$deprecatedPtr + 2]['content']
             )) {
                 return true;
             }
@@ -138,20 +135,20 @@ class PHPDocFormattingValidator
     /**
      * Searches for tag within comment
      *
-     * @param string $tag
      * @param int $commentStartPtr
-     * @param array $tokens
      * @return int
      */
-    private function getTagPosition($tag, $commentStartPtr, $tokens)
+    private function getTagPosition(string $tag, $commentStartPtr, array $tokens)
     {
         $commentCloserPtr = $tokens[$commentStartPtr]['comment_closer'];
 
         for ($i = $commentStartPtr; $i <= $commentCloserPtr; $i++) {
             $token = $tokens[$i];
-
             // Not interesting
-            if ($token['code'] !== T_DOC_COMMENT_TAG || $token['content'] !== $tag) {
+            if ($token['code'] !== T_DOC_COMMENT_TAG) {
+                continue;
+            }
+            if ($token['content'] !== $tag) {
                 continue;
             }
 

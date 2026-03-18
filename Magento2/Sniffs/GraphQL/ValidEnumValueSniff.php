@@ -16,7 +16,7 @@ class ValidEnumValueSniff extends AbstractGraphQLSniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_CLASS];
     }
@@ -73,7 +73,6 @@ class ValidEnumValueSniff extends AbstractGraphQLSniff
      * in <var>$tokens</var> and returns its pointer.
      *
      * @param int $startPointer
-     * @param array $tokens
      * @return bool|int
      */
     private function getClosingCurlyBracketPointer($startPointer, array $tokens)
@@ -88,7 +87,6 @@ class ValidEnumValueSniff extends AbstractGraphQLSniff
      * in <var>$tokens</var> and returns its pointer.
      *
      * @param int $startPointer
-     * @param array $tokens
      * @return bool|int
      */
     private function getOpeningCurlyBracketPointer($startPointer, array $tokens)
@@ -104,11 +102,10 @@ class ValidEnumValueSniff extends AbstractGraphQLSniff
      *
      * @param int $startPointer
      * @param int $endPointer
-     * @param array $tokens
      * @param string $eolChar
      * @return array<int,string>
      */
-    private function getValues($startPointer, $endPointer, array $tokens, $eolChar)
+    private function getValues($startPointer, $endPointer, array $tokens, $eolChar): array
     {
         $valueTokenPointer = null;
         $enumValue         = '';
@@ -137,7 +134,7 @@ class ValidEnumValueSniff extends AbstractGraphQLSniff
             }
 
             //if current token has a line break, we have found the end of the value definition
-            if (strpos($tokens[$i]['content'], $eolChar) !== false) {
+            if (str_contains((string) $tokens[$i]['content'], $eolChar)) {
                 $values[$valueTokenPointer] = trim($enumValue);
                 $enumValue                  = '';
                 $valueTokenPointer          = null;

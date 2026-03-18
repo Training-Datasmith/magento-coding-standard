@@ -22,10 +22,8 @@ class GRAPHQL extends Tokenizer
      * This is a complete list of all token types supported by <kbd>webonyx/graphql-php</var>. <knd>null</kbd> values
      * are automatically mapped to <kbd>T_STRING</kbd> but are noted as <kbd>null</kbd> in this list to improve
      * maintenance at a glance.
-     *
-     * @var array
      */
-    private $tokenTypeMap = [
+    private array $tokenTypeMap = [
         Token::AT           => 'T_DOC_COMMENT_TAG',
         Token::BANG         => 'T_BOOLEAN_NOT',
         Token::BLOCK_STRING => 'T_COMMENT',
@@ -51,10 +49,8 @@ class GRAPHQL extends Tokenizer
 
     /**
      * Defines how special keywords are mapped to PHP token types
-     *
-     * @var array
      */
-    private $keywordTokenTypeMap = [
+    private array $keywordTokenTypeMap = [
         'enum'       => 'T_CLASS',
         'extend'     => 'T_EXTENDS',
         'interface'  => 'T_INTERFACE',
@@ -68,7 +64,7 @@ class GRAPHQL extends Tokenizer
     /**
      * @inheritDoc
      */
-    public function processAdditional()
+    public function processAdditional(): void
     {
         $this->logVerbose('*** START ADDITIONAL GRAPHQL PROCESSING ***');
 
@@ -151,7 +147,7 @@ class GRAPHQL extends Tokenizer
      * Fixes that keywords may be used as field, argument etc. names and could thus have been marked as special tokens
      * while tokenizing.
      */
-    private function fixErroneousKeywordTokens()
+    private function fixErroneousKeywordTokens(): void
     {
         $processingCodeBlock = false;
         $numTokens           = count($this->tokens);
@@ -187,9 +183,8 @@ class GRAPHQL extends Tokenizer
      *
      * @param int $lineStart
      * @param int $lineEnd
-     * @return array
      */
-    private function getNewLineTokens($lineStart, $lineEnd)
+    private function getNewLineTokens($lineStart, $lineEnd): array
     {
         $amount = ($lineEnd - $lineStart) - 1;
         $tokens = [];
@@ -214,10 +209,9 @@ class GRAPHQL extends Tokenizer
      *   <li>it has a list of arguments followed by a {@link T_COLON}</li>
      * </ul>
      *
-     * @param int $stackPointer
      * @return bool
      */
-    private function isFieldToken($stackPointer)
+    private function isFieldToken(int $stackPointer)
     {
         //bail out if current token is nested in a parenthesis, since fields cannot be contained in parenthesises
         if (isset($this->tokens[$stackPointer]['nested_parenthesis'])) {
@@ -239,10 +233,9 @@ class GRAPHQL extends Tokenizer
     /**
      * Logs <var>$message</var> if {@link PHP_CODESNIFFER_VERBOSITY} is greater than <var>$level</var>.
      *
-     * @param string $message
      * @param int $level
      */
-    private function logVerbose($message, $level = 1)
+    private function logVerbose(string $message, $level = 1): void
     {
         if (PHP_CODESNIFFER_VERBOSITY > $level) {
             printf("\t%s" . PHP_EOL, $message);
@@ -252,7 +245,7 @@ class GRAPHQL extends Tokenizer
     /**
      * Processes field tokens, setting their type to {@link T_VARIABLE}.
      */
-    private function processFields()
+    private function processFields(): void
     {
         $processingEntity = false;
         $numTokens        = count($this->tokens);

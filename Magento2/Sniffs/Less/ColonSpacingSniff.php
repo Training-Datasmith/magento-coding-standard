@@ -28,7 +28,7 @@ class ColonSpacingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_COLON];
     }
@@ -36,7 +36,7 @@ class ColonSpacingSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -48,13 +48,10 @@ class ColonSpacingSniff implements Sniff
     /**
      * Check is it need to check spaces
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
      *
-     * @return bool
      */
-    private function needValidateSpaces(File $phpcsFile, $stackPtr, $tokens)
+    private function needValidateSpaces(File $phpcsFile, $stackPtr, array $tokens): bool
     {
         if (TokenizerSymbolsInterface::BITWISE_AND === $tokens[$stackPtr - 1]['content']) {
             return false;
@@ -81,13 +78,10 @@ class ColonSpacingSniff implements Sniff
      * - Exactly 1 space after colon
      * - No property definition scattered among several lines
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
      *
-     * @return void
      */
-    private function validateSpaces(File $phpcsFile, $stackPtr, array $tokens)
+    private function validateSpaces(File $phpcsFile, $stackPtr, array $tokens): void
     {
         if (T_WHITESPACE === $tokens[($stackPtr - 1)]['code']) {
             $phpcsFile->addError('There must be no space before a colon in a style definition', $stackPtr, 'Before');
@@ -103,8 +97,8 @@ class ColonSpacingSniff implements Sniff
             $phpcsFile->addError('Expected 1 space after colon in style definition; 0 found', $stackPtr, 'NoneAfter');
         } else {
             $content = $tokens[($stackPtr + 1)]['content'];
-            if (false !== strpos($content, ' ')) {
-                $length  = strlen($content);
+            if (str_contains((string) $content, ' ')) {
+                $length  = strlen((string) $content);
                 if ($length !== 1) {
                     $error = sprintf('Expected 1 space after colon in style definition; %s found', $length);
                     $phpcsFile->addError($error, $stackPtr, 'After');

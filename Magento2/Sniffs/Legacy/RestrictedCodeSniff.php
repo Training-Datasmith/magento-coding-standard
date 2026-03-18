@@ -19,10 +19,8 @@ class RestrictedCodeSniff implements Sniff
 
     /**
      * List of fixtures that contain restricted classes and should not be tested
-     *
-     * @var array
      */
-    private $fixtureFiles = [];
+    private array $fixtureFiles = [];
 
     /**
      * Restricted classes
@@ -43,7 +41,7 @@ class RestrictedCodeSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_STRING,
@@ -54,7 +52,7 @@ class RestrictedCodeSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         // phpcs:ignore Magento2.Functions.DiscouragedFunction
         if (array_key_exists(basename($phpcsFile->getFilename()), $this->fixtureFiles)) {
@@ -82,10 +80,6 @@ class RestrictedCodeSniff implements Sniff
 
     /**
      * Checks if currently parsed file should be excluded from analysis
-     *
-     * @param string $token
-     * @param File $phpcsFile
-     * @return bool
      */
     private function isExcluded(string $token, File $phpcsFile): bool
     {
@@ -93,7 +87,7 @@ class RestrictedCodeSniff implements Sniff
             return true;
         }
         foreach ($this->classes[$token]['exclude'] as $exclude) {
-            if (strpos($phpcsFile->getFilename(), $exclude) !== false) {
+            if (str_contains($phpcsFile->getFilename(), (string) $exclude)) {
                 return true;
             }
         }

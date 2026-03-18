@@ -30,7 +30,7 @@ class PhtmlTemplateSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_OBJECT_OPERATOR) {
@@ -43,10 +43,6 @@ class PhtmlTemplateSniff implements Sniff
     
     /**
      * Check access to protected and private members of Block
-     *
-     * @param File $phpcsFile
-     * @param int $stackPtr
-     * @param array $tokens
      */
     private function checkBlockVariable(File $phpcsFile, int $stackPtr, array $tokens): void
     {
@@ -55,7 +51,7 @@ class PhtmlTemplateSniff implements Sniff
             return;
         }
         $stringPos = $phpcsFile->findNext(T_STRING, $stackPtr + 1);
-        if (strpos($tokens[$stringPos]['content'], '_') === 0) {
+        if (str_starts_with((string) $tokens[$stringPos]['content'], '_')) {
             $phpcsFile->addWarning(
                 'Access to protected and private members of Block class is ' .
                 'obsolete in phtml templates. Use only public members.',
@@ -67,9 +63,6 @@ class PhtmlTemplateSniff implements Sniff
 
     /**
      * Check use of "text/javascript" type
-     *
-     * @param File $phpcsFile
-     * @param int $stackPtr
      */
     private function checkHtml(File $phpcsFile, int $stackPtr): void
     {

@@ -23,7 +23,7 @@ class ConstantUsageSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_OPEN_TAG];
     }
@@ -33,11 +33,9 @@ class ConstantUsageSniff implements Sniff
      *
      * {@inheritdoc}
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile
      * @param int $stackPtr
-     * @return void|int
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -67,16 +65,13 @@ class ConstantUsageSniff implements Sniff
     /**
      * Checks if first argument of \Magento2\Framework\Phrase or translation function is a constant
      *
-     * @param File $phpcsFile
-     * @param int $stackPtr
      * @param string $lineContent
-     * @return void
      */
     private function checkIfFirstArgumentConstant(
         File $phpcsFile,
-        $stackPtr,
+        int $stackPtr,
         $lineContent
-    ) {
+    ): void {
         $previousLineRegexp = '/(__|Phrase)\($/im';
         $currentLineRegexp = '/(__|Phrase)\(.+\)/';
         $currentLineMatch = preg_match($currentLineRegexp, $lineContent) !== 0;

@@ -28,7 +28,7 @@ class SelectorDelimiterSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_COMMA];
     }
@@ -36,7 +36,7 @@ class SelectorDelimiterSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -51,12 +51,9 @@ class SelectorDelimiterSniff implements Sniff
     /**
      * Parenthesis validation.
      *
-     * @param File $phpcsFile
      * @param int $stackPtr
-     * @param array $tokens
-     * @return void
      */
-    private function validateParenthesis(File $phpcsFile, $stackPtr, array $tokens)
+    private function validateParenthesis(File $phpcsFile, $stackPtr, array $tokens): void
     {
         $nextPtr = $stackPtr + 1;
 

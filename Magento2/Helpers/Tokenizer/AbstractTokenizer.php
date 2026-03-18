@@ -86,9 +86,8 @@ abstract class AbstractTokenizer
      * Set string for tokenize
      *
      * @param string $value
-     * @return void
      */
-    public function setString($value)
+    public function setString($value): void
     {
         //phpcs:ignore Magento2.Functions.DiscouragedFunction
         $this->_string = rawurldecode($value);
@@ -97,10 +96,8 @@ abstract class AbstractTokenizer
 
     /**
      * Move char index to begin of string
-     *
-     * @return void
      */
-    public function reset()
+    public function reset(): void
     {
         $this->_currentIndex = 0;
     }

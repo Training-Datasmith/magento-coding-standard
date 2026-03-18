@@ -14,10 +14,7 @@ use PHP_CodeSniffer\Util\Tokens;
  */
 class ImportsFromTestNamespaceSniff implements Sniff
 {
-    /**
-     * @var string
-     */
-    private $prohibitNamespace = 'Magento\Tests';
+    private string $prohibitNamespace = 'Magento\Tests';
 
     /**
      * @var string
@@ -32,7 +29,7 @@ class ImportsFromTestNamespaceSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_USE];
     }
@@ -40,12 +37,12 @@ class ImportsFromTestNamespaceSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $next = $phpcsFile->findNext([T_COMMA, T_SEMICOLON, T_OPEN_USE_GROUP, T_CLOSE_TAG], ($stackPtr + 1));
         $tokens = $phpcsFile->getTokens();
         $getTokenAsContent = $phpcsFile->getTokensAsString($stackPtr, ($next - $stackPtr));
-        if (strpos($getTokenAsContent, $this->prohibitNamespace) !== false) {
+        if (str_contains($getTokenAsContent, $this->prohibitNamespace)) {
             $phpcsFile->addWarning($this->warningMessage, $stackPtr, $this->warningCode);
         }
         if ($next !== false
@@ -60,7 +57,7 @@ class ImportsFromTestNamespaceSniff implements Sniff
                 if ($next !== false) {
                     $groupedAsContent = $baseUse. $tokens[$next]['content'];
                     $next = $phpcsFile->findNext(T_COMMA, ($next + 1), $closingCurly);
-                    if (strpos($groupedAsContent, $this->prohibitNamespace) !== false) {
+                    if (str_contains($groupedAsContent, $this->prohibitNamespace)) {
                         $phpcsFile->addWarning($this->warningMessage, $stackPtr, $this->warningCode);
                         return;
                     }

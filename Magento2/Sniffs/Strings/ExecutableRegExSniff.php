@@ -54,7 +54,7 @@ class ExecutableRegExSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_STRING];
     }
@@ -62,7 +62,7 @@ class ExecutableRegExSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         if (!in_array($tokens[$stackPtr]['content'], $this->functions)) {
@@ -74,7 +74,7 @@ class ExecutableRegExSniff implements Sniff
         }
         $nextToken = $phpcsFile->findNext([T_WHITESPACE, T_OPEN_PARENTHESIS], $stackPtr + 1, null, true);
         if (in_array($tokens[$nextToken]['code'], Tokens::$stringTokens)
-            && preg_match('/[#\/|~\}\)][imsxADSUXJu]*e[imsxADSUXJu]*.$/', $tokens[$nextToken]['content'])
+            && preg_match('/[#\/|~\}\)][imsxADSUXJu]*e[imsxADSUXJu]*.$/', (string) $tokens[$nextToken]['content'])
         ) {
             $phpcsFile->addError(
                 $this->errorMessage,

@@ -16,7 +16,7 @@ class FinalImplementationSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_FINAL];
     }
@@ -24,7 +24,7 @@ class FinalImplementationSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $phpcsFile->addError(
             // phpcs:ignore Generic.Files.LineLength

@@ -80,7 +80,7 @@ class InstallUpgradeSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($stackPtr > 0) {
             return;
@@ -89,7 +89,7 @@ class InstallUpgradeSniff implements Sniff
         $fileInfo = new SplFileInfo($phpcsFile->getFilename());
 
         foreach (self::WRONG_PREFIXES as $code => $data) {
-            if (strpos($fileInfo->getFilename(), $data['pattern']) === 0) {
+            if (str_starts_with($fileInfo->getFilename(), $data['pattern'])) {
                 $phpcsFile->addError($data['message'], 0, $code);
             }
         }

@@ -46,12 +46,12 @@ class DiConfigSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $lineContent = $phpcsFile->getTokensAsString($stackPtr, 1);
 
         foreach (self::OBSOLETE_NODES as $code => $data) {
-            if (strpos($lineContent, $data['pattern']) !== false) {
+            if (str_contains($lineContent, $data['pattern'])) {
                 $phpcsFile->addWarning(
                     $data['message'],
                     $stackPtr,

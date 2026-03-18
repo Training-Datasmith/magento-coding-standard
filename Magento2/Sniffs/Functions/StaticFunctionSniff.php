@@ -30,7 +30,7 @@ class StaticFunctionSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_STATIC];
     }
@@ -38,7 +38,7 @@ class StaticFunctionSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $posOfFunction = $phpcsFile->findNext(T_FUNCTION, $stackPtr) + 1;
         $tokens = array_slice($phpcsFile->getTokens(), $stackPtr, $posOfFunction - $stackPtr);

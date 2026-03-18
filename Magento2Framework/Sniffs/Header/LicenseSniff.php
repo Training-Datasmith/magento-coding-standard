@@ -26,7 +26,7 @@ class LicenseSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_DOC_COMMENT_STRING,
@@ -37,7 +37,7 @@ class LicenseSniff implements Sniff
     /**
      * @inheritDoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $tokens = $phpcsFile->getTokens();
         $content = null;
@@ -55,10 +55,6 @@ class LicenseSniff implements Sniff
 
     /**
      * Check that the copyright license does not contain legacy text
-     *
-     * @param string $content
-     * @param int $stackPtr
-     * @param File $phpcsFile
      */
     private function checkLicense(string $content, int $stackPtr, File $phpcsFile): void
     {

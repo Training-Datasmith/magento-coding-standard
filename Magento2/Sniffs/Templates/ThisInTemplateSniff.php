@@ -19,7 +19,7 @@ class ThisInTemplateSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [T_VARIABLE];
     }
@@ -27,7 +27,7 @@ class ThisInTemplateSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         if ($phpcsFile->getTokensAsString($stackPtr, 1) !== '$this') {
             return;

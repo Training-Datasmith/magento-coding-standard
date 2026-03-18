@@ -72,17 +72,13 @@ class XssTemplateSniff implements Sniff
 
     /**
      * Warning violation code.
-     *
-     * @var string
      */
-    private $hasDisallowedAnnotation = false;
+    private bool $hasDisallowedAnnotation = false;
 
     /**
      * Parsed statements to check for escaping.
-     *
-     * @var array
      */
-    private $statements = [];
+    private array $statements = [];
 
     /**
      * PHP_CodeSniffer file.
@@ -101,7 +97,7 @@ class XssTemplateSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function register()
+    public function register(): array
     {
         return [
             T_ECHO,
@@ -113,7 +109,7 @@ class XssTemplateSniff implements Sniff
     /**
      * @inheritdoc
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr): void
     {
         $this->file = $phpcsFile;
         $this->tokens = $this->file->getTokens();
@@ -121,7 +117,7 @@ class XssTemplateSniff implements Sniff
         $annotation = $this->findSpecialAnnotation($stackPtr);
         if ($annotation !== false) {
             foreach ($this->allowedAnnotations as $allowedAnnotation) {
-                if (strpos($this->tokens[$annotation]['content'], $allowedAnnotation) !== false) {
+                if (str_contains((string) $this->tokens[$annotation]['content'], (string) $allowedAnnotation)) {
                     return;
                 }
             }
@@ -162,12 +158,11 @@ class XssTemplateSniff implements Sniff
      *
      * See https://devdocs.magento.com/guides/v2.3/extension-dev-guide/xss-protection.html
      *
-     * @param array $statement
      * @return void
      *
      * phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
      */
-    private function detectUnescapedString($statement)
+    private function detectUnescapedString(array $statement): void
     {
         // phpcs:enable
         $posOfFirstElement = $this->file->findNext(
@@ -219,7 +214,7 @@ class XssTemplateSniff implements Sniff
                 $posOfMethod = $this->file->findNext([T_STRING, T_VARIABLE], $posOfObjOperator + 1, $statement['end']);
                 if ($this->tokens[$posOfMethod]['code'] === T_STRING &&
                     (in_array($this->tokens[$posOfMethod]['content'], $this->allowedMethods) ||
-                        stripos($this->tokens[$posOfMethod]['content'], $this->methodNameContains) !== false)
+                        stripos((string) $this->tokens[$posOfMethod]['content'], $this->methodNameContains) !== false)
                 ) {
                     break;
                 } else {
@@ -273,9 +268,8 @@ class XssTemplateSniff implements Sniff
      *
      * @param int $start
      * @param int $end
-     * @return void
      */
-    private function addStatement($start, $end)
+    private function addStatement($start, $end): void
     {
         $this->statements[] = [
             'start' => $start,
@@ -298,9 +292,8 @@ class XssTemplateSniff implements Sniff
         $nextToken = $this->tokens[$next];
         if ($nextToken['code'] === T_OPEN_PARENTHESIS) {
             return $this->findNextInScope($types, $nextToken['parenthesis_closer'] + 1, $end);
-        } else {
-            return $next;
         }
+        return $next;
     }
 
     /**
@@ -318,18 +311,16 @@ class XssTemplateSniff implements Sniff
         $nextInScope = $this->findNextInScope($types, $start, $end);
         if ($nextInScope !== false && $nextInScope > $last) {
             return $this->findLastInScope($types, $nextInScope + 1, $end, $nextInScope);
-        } else {
-            return $last;
         }
+        return $last;
     }
 
     /**
      * Adds CS warning message.
      *
      * @param int $position
-     * @return void
      */
-    private function addWarning($position)
+    private function addWarning($position): void
     {
         if ($this->hasDisallowedAnnotation) {
             $this->file->addWarning($this->warningMessage, $position, $this->warningCodeNotAllowed);
