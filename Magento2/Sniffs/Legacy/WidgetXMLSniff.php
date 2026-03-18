@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Legacy;
 
 use DOMDocument;
@@ -25,7 +28,7 @@ class WidgetXMLSniff implements Sniff
     public function register(): array
     {
         return [
-            T_INLINE_HTML
+            T_INLINE_HTML,
         ];
     }
 
@@ -64,7 +67,7 @@ class WidgetXMLSniff implements Sniff
         $foundElements = $xml->xpath('/widgets/*/supported_blocks');
         foreach ($foundElements as $element) {
             $phpcsFile->addError(
-                "Obsolete node: <supported_blocks>. To be replaced with <supported_containers>",
+                'Obsolete node: <supported_blocks>. To be replaced with <supported_containers>',
                 dom_import_simplexml($element)->getLineNo() - 1,
                 self::ERROR_CODE_OBSOLETE_SUPPORTED_BLOCKS
             );
@@ -73,7 +76,7 @@ class WidgetXMLSniff implements Sniff
         $foundElements = $xml->xpath('/widgets/*/*/*/block_name');
         foreach ($foundElements as $element) {
             $phpcsFile->addError(
-                "Obsolete node: <block_name>. To be replaced with <container_name>",
+                'Obsolete node: <block_name>. To be replaced with <container_name>',
                 dom_import_simplexml($element)->getLineNo() - 1,
                 self::ERROR_CODE_OBSOLETE_BLOCK_NAME
             );

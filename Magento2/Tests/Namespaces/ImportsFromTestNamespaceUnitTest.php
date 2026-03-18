@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Namespaces;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
@@ -27,7 +30,7 @@ class ImportsFromTestNamespaceUnitTest extends AbstractSniffUnitTest
     {
         return [
             2 => 1,
-            5 => 1
+            5 => 1,
         ];
     }
 }

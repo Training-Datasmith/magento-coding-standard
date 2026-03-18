@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2018 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Legacy;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Detects typical Magento 1.x classes constructions.
@@ -41,7 +44,7 @@ class MageEntitySniff implements Sniff
      */
     protected $legacyPrefixes = [
         'Mage_',
-        'Enterprise_'
+        'Enterprise_',
     ];
 
     /**
@@ -51,7 +54,7 @@ class MageEntitySniff implements Sniff
     {
         return [
             T_DOUBLE_COLON,
-            T_NEW
+            T_NEW,
         ];
     }
 
@@ -61,7 +64,7 @@ class MageEntitySniff implements Sniff
      * @var array
      */
     protected $nameBefore = [
-        T_DOUBLE_COLON
+        T_DOUBLE_COLON,
     ];
 
     /**

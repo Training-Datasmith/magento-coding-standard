@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -26,7 +27,7 @@ class ArrayAutovivificationUnitTest extends AbstractSniffUnitTest
     {
         if ($testFile === 'ArrayAutovivificationUnitTest.inc') {
             return [
-                46 => 1
+                46 => 1,
             ];
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
@@ -35,7 +36,7 @@ class MethodAnnotationStructureSniff implements Sniff
     public function register(): array
     {
         return [
-            T_FUNCTION
+            T_FUNCTION,
         ];
     }
 
@@ -51,7 +52,7 @@ class MethodAnnotationStructureSniff implements Sniff
             \T_OPEN_CURLY_BRACKET,
             \T_CLOSE_CURLY_BRACKET,
             \T_ATTRIBUTE_END,
-            \T_DOC_COMMENT_CLOSE_TAG
+            \T_DOC_COMMENT_CLOSE_TAG,
         ];
 
         do {
@@ -89,7 +90,7 @@ class MethodAnnotationStructureSniff implements Sniff
         }
         $emptyTypeTokens = [
             T_DOC_COMMENT_WHITESPACE,
-            T_DOC_COMMENT_STAR
+            T_DOC_COMMENT_STAR,
         ];
         $shortPtr = $phpcsFile->findNext($emptyTypeTokens, $commentStartPtr + 1, $commentCloserPtr, true);
         if ($shortPtr === false) {

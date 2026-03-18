@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Helpers\Tokenizer;
 
 /**
@@ -286,8 +289,7 @@ class Variable extends AbstractTokenizer
                 $value[] = $this->getNumber();
             } elseif ($this->isArray()) {
                 $value[] = $this->getArray();
-            }
-            else {
+            } else {
                 $value[] = $this->getString();
             }
         }

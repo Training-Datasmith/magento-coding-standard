@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -20,7 +21,7 @@ class EventShorthandTest extends AbstractEslintTestCase
             'EventShorthandTest.js',
             [
                 'jQuery.unload() was removed, use .on("unload", fn) instead',
-                'jQuery.ready(handler) is deprecated and should be replaced with jQuery(handler)'
+                'jQuery.ready(handler) is deprecated and should be replaced with jQuery(handler)',
             ]
         );
     }

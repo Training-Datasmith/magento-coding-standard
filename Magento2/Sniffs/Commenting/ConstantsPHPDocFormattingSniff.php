@@ -1,13 +1,16 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Commenting;
 
 use Magento2\Helpers\Commenting\PHPDocFormattingValidator;
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Detects PHPDoc formatting for constants.
@@ -31,7 +34,7 @@ class ConstantsPHPDocFormattingSniff implements Sniff
     {
         return [
             T_CONST,
-            T_STRING
+            T_STRING,
         ];
     }
 

@@ -1,12 +1,13 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\GraphQL;
 
-use GraphQL\Error\SyntaxError;
-use GraphQL\Language\AST\DocumentNode;
 use PHP_CodeSniffer\Files\File;
 
 /**
@@ -14,7 +15,6 @@ use PHP_CodeSniffer\Files\File;
  */
 class ValidArgumentNameSniff extends AbstractGraphQLSniff
 {
-
     /**
      * @inheritDoc
      */

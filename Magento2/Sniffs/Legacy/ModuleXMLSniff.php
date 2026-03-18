@@ -1,14 +1,16 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Legacy;
 
 use DOMDocument;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use SimpleXMLElement;
 
 /**
  * Test for obsolete nodes/attributes in the module.xml
@@ -24,7 +26,7 @@ class ModuleXMLSniff implements Sniff
     public function register(): array
     {
         return [
-            T_INLINE_HTML
+            T_INLINE_HTML,
         ];
     }
 
@@ -58,7 +60,7 @@ class ModuleXMLSniff implements Sniff
             foreach ($foundElements as $element) {
                 $phpcsFile->addWarning(
                     'The "version" attribute is obsolete. Use "setup_version" instead.',
-                    dom_import_simplexml($element)->getLineNo()-1,
+                    dom_import_simplexml($element)->getLineNo() - 1,
                     self::WARNING_CODE
                 );
             }
@@ -70,7 +72,7 @@ class ModuleXMLSniff implements Sniff
                 $phpcsFile->addWarning(
                     'The "active" attribute is obsolete. The list of active modules '.
                     'is defined in deployment configuration.',
-                    dom_import_simplexml($element)->getLineNo()-1,
+                    dom_import_simplexml($element)->getLineNo() - 1,
                     self::WARNING_CODE
                 );
             }

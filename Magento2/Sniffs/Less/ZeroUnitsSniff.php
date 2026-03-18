@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Less;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Class ZeroUnitsSniff
@@ -56,7 +59,7 @@ class ZeroUnitsSniff implements Sniff
         $nextToken = $tokens[$stackPtr + 1];
 
         if (T_LNUMBER === $tokenCode
-            && "0" === $tokenContent
+            && '0' === $tokenContent
             && T_STRING === $nextToken['code']
             && in_array($nextToken['content'], $this->units)
         ) {
@@ -64,7 +67,7 @@ class ZeroUnitsSniff implements Sniff
         }
 
         if ((T_DNUMBER === $tokenCode)
-            && str_starts_with((string) $tokenContent, "0")
+            && str_starts_with((string) $tokenContent, '0')
             && ((float)$tokenContent < 1)
         ) {
             $phpcsFile->addError('Values starts from "0"', $stackPtr, 'ZeroUnitFound');

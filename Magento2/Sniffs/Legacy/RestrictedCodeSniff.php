@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2\Sniffs\Legacy;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Tests to find usage of restricted code
@@ -45,7 +46,7 @@ class RestrictedCodeSniff implements Sniff
     {
         return [
             T_STRING,
-            T_CONSTANT_ENCAPSED_STRING
+            T_CONSTANT_ENCAPSED_STRING,
         ];
     }
 

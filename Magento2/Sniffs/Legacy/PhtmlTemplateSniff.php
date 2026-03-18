@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2\Sniffs\Legacy;
 
@@ -14,7 +15,7 @@ class PhtmlTemplateSniff implements Sniff
 {
     private const WARNING_CODE_TEXT_JAVASCRIPT = 'TextJavascriptTypeFound';
     private const WARNING_CODE_PROTECTED_PRIVATE_BLOCK_ACCESS = 'ProtectedPrivateBlockAccess';
-    
+
     /**
      * @inheritdoc
      */
@@ -23,7 +24,7 @@ class PhtmlTemplateSniff implements Sniff
         return [
             T_OBJECT_OPERATOR,
             T_INLINE_HTML,
-            T_HEREDOC
+            T_HEREDOC,
         ];
     }
 
@@ -40,7 +41,7 @@ class PhtmlTemplateSniff implements Sniff
             $this->checkHtml($phpcsFile, $stackPtr);
         }
     }
-    
+
     /**
      * Check access to protected and private members of Block
      */
@@ -67,7 +68,7 @@ class PhtmlTemplateSniff implements Sniff
     private function checkHtml(File $phpcsFile, int $stackPtr): void
     {
         $content = $phpcsFile->getTokensAsString($stackPtr, 1);
-        
+
         if (preg_match('/type="text\/javascript"/', $content)) {
             $phpcsFile->addWarning(
                 'Please do not use "text/javascript" type attribute.',

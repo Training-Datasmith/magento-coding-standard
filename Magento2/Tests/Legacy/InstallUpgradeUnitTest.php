@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Legacy;
 
 use DirectoryIterator;
@@ -65,7 +68,7 @@ class InstallUpgradeUnitTest extends AbstractSniffUnitTest
     {
         if (in_array($testFile, $this->wrongFileNames)) {
             return [
-                1 => 1
+                1 => 1,
             ];
         }
         return [];

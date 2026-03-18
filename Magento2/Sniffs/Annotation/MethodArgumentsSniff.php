@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
@@ -22,14 +23,14 @@ class MethodArgumentsSniff implements Sniff
         'T_PROTECTED',
         'T_STATIC',
         'T_ABSTRACT',
-        'T_FINAL'
+        'T_FINAL',
     ];
 
     private array $invalidTypes = [
         'null',
         'false',
         'true',
-        'self'
+        'self',
     ];
 
     /**
@@ -38,7 +39,7 @@ class MethodArgumentsSniff implements Sniff
     public function register(): array
     {
         return [
-            T_FUNCTION
+            T_FUNCTION,
         ];
     }
 
@@ -501,13 +502,13 @@ class MethodArgumentsSniff implements Sniff
                         $paramDefinitions[] = [
                             'type' => null,
                             'paramName' => rtrim(ltrim((string) $tokens[$tempPtr + 2]['content'], '&'), ','),
-                            'comment' => null
+                            'comment' => null,
                         ];
                     } else {
                         $paramDefinitions[] = [
                             'type' => $tokens[$tempPtr + 2]['content'],
                             'paramName' => null,
-                            'comment' => null
+                            'comment' => null,
                         ];
                     }
                 } else {

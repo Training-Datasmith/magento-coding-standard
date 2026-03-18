@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2018 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\PHP;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Detects misusing of IS_IDENTICAL operators.
@@ -35,7 +38,7 @@ class ReturnValueCheckSniff implements Sniff
     protected $functions = [
         'strpos',
         'stripos',
-        'array_search'
+        'array_search',
     ];
 
     /**

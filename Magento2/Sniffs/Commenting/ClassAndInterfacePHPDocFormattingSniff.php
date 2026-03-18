@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Commenting;
 
 use Magento2\Helpers\Commenting\PHPDocFormattingValidator;
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Detects PHPDoc formatting for classes and interfaces.
@@ -24,7 +27,7 @@ class ClassAndInterfacePHPDocFormattingSniff implements Sniff
         '@author',
         '@category',
         '@package',
-        '@subpackage'
+        '@subpackage',
     ];
 
     /**
@@ -42,7 +45,7 @@ class ClassAndInterfacePHPDocFormattingSniff implements Sniff
     {
         return [
             T_CLASS,
-            T_INTERFACE
+            T_INTERFACE,
         ];
     }
 

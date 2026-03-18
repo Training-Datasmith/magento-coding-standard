@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Less;
 
 class SelectorDelimiterUnitTest extends AbstractLessSniffUnitTestCase
@@ -13,7 +16,7 @@ class SelectorDelimiterUnitTest extends AbstractLessSniffUnitTestCase
     public function getErrorList()
     {
         return [
-            11 => 1
+            11 => 1,
         ];
     }
 

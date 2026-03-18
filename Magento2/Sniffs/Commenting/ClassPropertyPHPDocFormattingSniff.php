@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
@@ -7,9 +8,9 @@ declare(strict_types=1);
 
 namespace Magento2\Sniffs\Commenting;
 
+use Magento2\Helpers\Commenting\PHPDocFormattingValidator;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
-use Magento2\Helpers\Commenting\PHPDocFormattingValidator;
 
 /**
  * Class ClassPropertyPHPDocFormattingSniff

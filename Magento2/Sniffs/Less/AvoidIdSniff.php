@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Less;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Class AvoidIdSniff
@@ -46,7 +49,7 @@ class AvoidIdSniff implements Sniff
         T_PLUS,
         T_NS_SEPARATOR,
         T_LNUMBER,
-        T_BITWISE_NOT
+        T_BITWISE_NOT,
     ];
 
     /**

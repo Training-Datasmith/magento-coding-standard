@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2Framework\Sniffs\Header;
 
@@ -30,7 +31,7 @@ class LicenseSniff implements Sniff
     {
         return [
             T_DOC_COMMENT_STRING,
-            T_INLINE_HTML
+            T_INLINE_HTML,
         ];
     }
 
@@ -65,7 +66,7 @@ class LicenseSniff implements Sniff
         foreach (self::LEGACY_TEXTS as $legacyText) {
             if (stripos($commentContent, $legacyText) !== false) {
                 $phpcsFile->addWarning(
-                    sprintf("The copyright license contains legacy text: %s.", $legacyText),
+                    sprintf('The copyright license contains legacy text: %s.', $legacyText),
                     $stackPtr,
                     self::WARNING_CODE
                 );

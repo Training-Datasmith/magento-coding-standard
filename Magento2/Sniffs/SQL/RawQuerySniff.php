@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\SQL;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 
 /**
@@ -39,7 +42,7 @@ class RawQuerySniff implements Sniff
         'DELETE',
         'ALTER',
         'DROP',
-        'TRUNCATE'
+        'TRUNCATE',
     ];
     /**
      * List of query functions.
@@ -47,7 +50,7 @@ class RawQuerySniff implements Sniff
      * @var array
      */
     protected $queryFunctions = [
-        'query'
+        'query',
     ];
     /**
      * @inheritdoc
@@ -68,7 +71,7 @@ class RawQuerySniff implements Sniff
             || ($prev['code'] === T_STRING && in_array($prev['content'], $this->queryFunctions))
             || in_array($tokens[$stackPtr]['code'], [T_HEREDOC, T_NOWDOC])
         ) {
-            $trim = (fn($str) => trim(str_replace(['\'', '"'], '', $str)));
+            $trim = (fn ($str) => trim(str_replace(['\'', '"'], '', $str)));
 
             if (preg_match('/^(' . implode('|', $this->statements) . ')\s/i', $trim($tokens[$stackPtr]['content']))) {
                 $phpcsFile->addWarning(

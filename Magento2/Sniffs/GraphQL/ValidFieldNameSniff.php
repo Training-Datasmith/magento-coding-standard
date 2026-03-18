@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\GraphQL;
 
 use PHP_CodeSniffer\Files\File;

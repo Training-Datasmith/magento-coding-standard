@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -33,7 +35,7 @@ class ThrowCatchUnitTest extends AbstractSniffUnitTest
             120 => 1,
             126 => 1,
             145 => 1,
-            156 => 1
+            156 => 1,
         ];
     }
 }

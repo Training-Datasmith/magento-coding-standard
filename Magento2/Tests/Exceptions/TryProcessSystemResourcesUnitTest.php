@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Exceptions;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
@@ -29,7 +32,7 @@ class TryProcessSystemResourcesUnitTest extends AbstractSniffUnitTest
             22 => 1,
             24 => 1,
             26 => 1,
-            28 => 1
+            28 => 1,
         ];
     }
 }

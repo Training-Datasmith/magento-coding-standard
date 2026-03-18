@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2018 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Security;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Detects not escaped output in phtml templates.
@@ -46,7 +49,7 @@ class XssTemplateSniff implements Sniff
         'escapeXssInUrl',
         'escapeJs',
         'escapeCss',
-        'getJsLayout'
+        'getJsLayout',
     ];
 
     /**
@@ -273,7 +276,7 @@ class XssTemplateSniff implements Sniff
     {
         $this->statements[] = [
             'start' => $start,
-            'end' => $end
+            'end' => $end,
         ];
     }
 

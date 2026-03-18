@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
@@ -35,7 +36,7 @@ class ArrayAutovivificationSniff implements Sniff
     public function register(): array
     {
         return [
-            T_VARIABLE
+            T_VARIABLE,
         ];
     }
 

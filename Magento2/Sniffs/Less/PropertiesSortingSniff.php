@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Less;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Class PropertiesSortingSniff
@@ -41,7 +44,7 @@ class PropertiesSortingSniff implements Sniff
             T_CLOSE_CURLY_BRACKET,
             T_OPEN_PARENTHESIS,
             T_CLOSE_PARENTHESIS,
-            T_STYLE
+            T_STYLE,
         ];
     }
 
@@ -90,7 +93,7 @@ class PropertiesSortingSniff implements Sniff
         $symbolsForSkip = ['(', 'block', 'field'];
         $properties = array_filter(
             $properties,
-            fn($var) => !in_array($var, $symbolsForSkip)
+            fn ($var) => !in_array($var, $symbolsForSkip)
         );
 
         $originalProperties = $properties;

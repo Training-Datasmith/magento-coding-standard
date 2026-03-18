@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2\Sniffs\Legacy;
 
@@ -55,8 +56,8 @@ class InstallUpgradeSniff implements Sniff
         ],
         'ObsoleteRecurringScript' => [
             'pattern' => 'recurring',
-            'message' => 'Recurring scripts are obsolete. Please create class Recurring in module\'s Setup folder'
-        ]
+            'message' => 'Recurring scripts are obsolete. Please create class Recurring in module\'s Setup folder',
+        ],
     ];
 
     /**
@@ -64,7 +65,7 @@ class InstallUpgradeSniff implements Sniff
      */
     private const INVALID_DIRECTORIES_ERROR_CODES = [
         'data' => 'DataInvalidDirectory',
-        'sql' => 'SqlInvalidDirectory'
+        'sql' => 'SqlInvalidDirectory',
     ];
 
     /**
@@ -73,7 +74,7 @@ class InstallUpgradeSniff implements Sniff
     public function register(): array
     {
         return [
-            T_OPEN_TAG
+            T_OPEN_TAG,
         ];
     }
 
@@ -85,7 +86,7 @@ class InstallUpgradeSniff implements Sniff
         if ($stackPtr > 0) {
             return;
         }
-        
+
         $fileInfo = new SplFileInfo($phpcsFile->getFilename());
 
         foreach (self::WRONG_PREFIXES as $code => $data) {
@@ -99,7 +100,7 @@ class InstallUpgradeSniff implements Sniff
 
         if ($folderName === 'data' || $folderName === 'sql') {
             $phpcsFile->addError(
-                $fileInfo->getFilename()." is in an invalid directory ".$fileInfo->getPath().":\n"
+                $fileInfo->getFilename().' is in an invalid directory '.$fileInfo->getPath().":\n"
                 . "- Create a data patch within module's Setup/Patch/Data folder for data upgrades.\n"
                 . "- Use declarative schema approach in module's etc/db_schema.xml file for schema changes.",
                 0,

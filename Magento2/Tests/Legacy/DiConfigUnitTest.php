@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Legacy;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
@@ -27,7 +30,7 @@ class DiConfigUnitTest extends AbstractSniffUnitTest
             16 => 1,
             17 => 1,
             18 => 1,
-            19 => 1
+            19 => 1,
         ];
     }
 }

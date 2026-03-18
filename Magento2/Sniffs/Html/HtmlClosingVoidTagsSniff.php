@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2022 Adobe
  * All Rights Reserved.
@@ -7,8 +8,8 @@ declare(strict_types=1);
 
 namespace Magento2\Sniffs\Html;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Sniff for void closing tags.
@@ -52,7 +53,7 @@ class HtmlClosingVoidTagsSniff implements Sniff
         'param',
         'source',
         'track',
-        'wbr'
+        'wbr',
     ];
 
     /**

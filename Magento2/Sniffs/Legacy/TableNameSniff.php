@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2\Sniffs\Legacy;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Coverage of obsolete table names usage
@@ -58,7 +59,7 @@ class TableNameSniff implements Sniff
         return [
             T_OBJECT_OPERATOR,
             T_VARIABLE,
-            T_DOUBLE_ARROW
+            T_DOUBLE_ARROW,
         ];
     }
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2\Sniffs\Legacy;
 
@@ -35,7 +36,7 @@ class ObsoleteConnectionSniff implements Sniff
     {
         return [
             T_OBJECT_OPERATOR,
-            T_FUNCTION
+            T_FUNCTION,
         ];
     }
 
@@ -54,11 +55,11 @@ class ObsoleteConnectionSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $stringPos = $phpcsFile->findNext(T_STRING, $stackPtr + 1);
-        
+
         foreach ($this->obsoleteMethods as $method) {
             if ($tokens[$stringPos]['content'] === $method) {
                 $phpcsFile->addWarning(
-                    sprintf("Contains obsolete method: %s. Please use getConnection method instead.", $method),
+                    sprintf('Contains obsolete method: %s. Please use getConnection method instead.', $method),
                     $stackPtr,
                     self::OBSOLETE_METHOD_ERROR_CODE
                 );

@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Less;
 
 class CommentLevelsUnitTest extends AbstractLessSniffUnitTestCase
@@ -18,7 +21,7 @@ class CommentLevelsUnitTest extends AbstractLessSniffUnitTestCase
             31 => 1,
             44 => 1,
             46 => 1,
-            47 => 1
+            47 => 1,
         ];
     }
 

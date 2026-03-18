@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
@@ -19,320 +21,320 @@ return [
             'Magento/Framework/DB/Select.php',
             'Magento/Framework/DB/Adapter/Pdo/Mysql.php',
             'Magento/Framework/Model/ResourceModel/Iterator.php',
-            'Magento/ResourceConnections/DB/Adapter/Pdo/MysqlProxy.php'
-        ]
+            'Magento/ResourceConnections/DB/Adapter/Pdo/MysqlProxy.php',
+        ],
     ],
     'Zend_Db_Adapter_Pdo_Mysql' => [
         'warning_code' => 'ZendDbAdapterPdoMysqlIsRestricted',
         'replacement' => '\Magento\Framework\DB\Adapter\Pdo\Mysql',
         'exclude' => [
-            'Magento/Framework/DB/Adapter/Pdo/Mysql.php'
-        ]
+            'Magento/Framework/DB/Adapter/Pdo/Mysql.php',
+        ],
     ],
     'Zend_Json' => [
         'warning_code' => 'ZendJsonIsRestricted',
         'replacement' => 'Magento\Framework\Serialize\Serializer\Json',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Json_Exception' => [
         'warning_code' => 'ZendJsonIsRestricted',
         'replacement' => '\InvalidArgumentException',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Acl' => [
         'warning_code' => 'ZendAclIsRestricted',
         'replacement' => 'Laminas\Permissions\Acl\Acl',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Acl_Role' => [
         'warning_code' => 'ZendAclIsRestricted',
         'replacement' => 'Laminas\Permissions\Acl\Role\GenericRole',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Acl_Resource' => [
         'warning_code' => 'ZendAclIsRestricted',
         'replacement' => 'Laminas\Permissions\Acl\Resource\GenericResource',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Acl_Role_Registry' => [
         'warning_code' => 'ZendAclIsRestricted',
         'replacement' => 'Laminas\Permissions\Acl\Role\Registry',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Acl_Role_Registry_Exception' => [
         'warning_code' => 'ZendAclIsRestricted',
         'replacement' => 'Laminas\Permissions\Acl\Exception\InvalidArgumentException',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Acl_Exception' => [
         'warning_code' => 'ZendAclIsRestricted',
         'replacement' => 'Laminas\Permissions\Acl\Exception\InvalidArgumentException',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Acl_Role_Interface' => [
         'warning_code' => 'ZendAclIsRestricted',
         'replacement' => 'Laminas\Permissions\Acl\Role\RoleInterface',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Currency' => [
         'warning_code' => 'ZendAclIsRestricted',
         'replacement' => 'Magento\Framework\Currency\Data\Currency',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Currency_Exception' => [
         'warning_code' => 'ZendCurrencyIsRestricted',
         'replacement' => 'Magento\Framework\Currency\Exception\CurrencyException',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Oauth_Http_Utility' => [
         'warning_code' => 'ZendOauthIsRestricted',
         'replacement' => 'Laminas\OAuth\Http\Utility',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Measure_Weight' => [
         'warning_code' => 'ZendMeasureIsRestricted',
         'replacement' => 'Magento\Framework\Measure\Weight',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Measure_Length' => [
         'warning_code' => 'ZendMeasureIsRestricted',
         'replacement' => 'Magento\Framework\Measure\Length',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Magento\Framework\Validator\ValidatorChain',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Regex' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\Regex',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Interface' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\ValidatorInterface',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_EmailAddress' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Magento\Framework\Validator\EmailAddress',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_StringLength' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Magento\Framework\Validator\StringLength',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Exception' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Magento\Framework\Validator\ValidateException',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_File_ExcludeExtension' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\File\ExcludeExtension',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_File_Extension' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\File\Extension',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_File_ImageSize' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\File\ImageSize',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_File_FilesSize' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\File\FilesSize',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Alnum' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Magento\Framework\Validator\Alnum',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Hostname' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Magento\Framework\Validator\Hostname',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Date' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\Date',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Digits' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\Digits',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Alpha' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\I18n\Validator\Alpha',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_InArray' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\InArray',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Abstract' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\AbstractValidator',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_NotEmpty' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Magento\Framework\Validator\NotEmpty',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Callback' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\Callback',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Ip' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\Ip',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Identical' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\Identical',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_File_IsImage' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\File\IsImage',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_File_Size' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\Validator\File\FilesSize',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Float' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\I18n\Validator\IsFloat',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Validate_Int' => [
         'warning_code' => 'ZendValidateIsRestricted',
         'replacement' => 'Laminas\I18n\Validator\IsInt',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Magento\Framework\HTTP\ZendClient' => [
         'warning_code' => 'HttpZendClientIsRestricted',
         'replacement' => 'Magento\Framework\HTTP\LaminasClient',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Magento\Framework\HTTP\ZendClientFactory' => [
         'warning_code' => 'HttpZendClientFactoryIsRestricted',
         'replacement' => 'Magento\Framework\HTTP\LaminasClientFactory',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Http_Client' => [
         'warning_code' => 'ZendHttpIsRestricted',
         'replacement' => 'Laminas\Http\Request',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Http_Response' => [
         'warning_code' => 'ZendHttpIsRestricted',
         'replacement' => 'Laminas\Http\Response',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Http_Exception' => [
         'warning_code' => 'ZendHttpIsRestricted',
         'replacement' => 'Laminas\Http\Exception\RuntimeException',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Http_Client_Exception' => [
         'warning_code' => 'ZendHttpIsRestricted',
         'replacement' => 'Laminas\Http\Exception\RuntimeException',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Http_Client_Adapter_Interface' => [
         'warning_code' => 'ZendHttpIsRestricted',
         'replacement' => 'Laminas\Http\Client\Adapter\AdapterInterface',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter_File_Rename' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Laminas\Filter\File\Rename',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Magento\Framework\Filter\FilterInput',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter_Input' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Magento\Framework\Filter\FilterInput',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter_Interface' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Laminas\Filter\FilterInterface',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter_LocalizedToNormalized' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Magento\Framework\Filter\LocalizedToNormalized',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter_Decrypt' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Laminas\Filter\Decrypt',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter_Encrypt' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Laminas\Filter\Encrypt',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter_Encrypt_Interface' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Laminas\Filter\Encrypt\EncryptionAlgorithmInterface',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Filter_Alnum' => [
         'warning_code' => 'ZendFilterIsRestricted',
         'replacement' => 'Laminas\I18n\Filter\Alnum',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Translate_Adapter' => [
         'warning_code' => 'ZendTranslateIsRestricted',
         'replacement' => 'Laminas\I18n\View\Helper\AbstractTranslatorHelper',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_File_Transfer_Exception' => [
         'warning_code' => 'ZendFileIsRestricted',
         'replacement' => 'Laminas\File\Transfer\Exception\PhpEnvironmentException',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_File_Transfer_Adapter_Http' => [
         'warning_code' => 'ZendFileIsRestricted',
         'replacement' => 'Magento\Framework\File\Http',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_File_Transfer' => [
         'warning_code' => 'ZendFileIsRestricted',
         'replacement' => 'Laminas\File\Transfer\Transfer',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Date' => [
         'warning_code' => 'ZendDateIsRestricted',
         'replacement' => '\IntlDateFormatter',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Zend_Locale_Format' => [
         'warning_code' => 'ZendLocaleFormatIsRestricted',
         'replacement' => 'Laminas\I18n\Filter\NumberParse, \NumberFormatter, \IntlDateFormatter',
-        'exclude' => []
+        'exclude' => [],
     ],
     'Magento\Framework\Serialize\Serializer\Serialize' => [
         'warning_code' => 'SerializerSerializeIsRestricted',
@@ -360,8 +362,8 @@ return [
             'Magento/Framework/Unserialize/Test/Unit/UnserializeTest.php',
             'Magento/Framework/Test/Unit/FlagTest.php',
             'Magento/Staging/Test/Unit/Model/Update/FlagTest.php',
-            'Magento/Logging/Test/Unit/Setup/ObjectConverterTest.php'
-        ]
+            'Magento/Logging/Test/Unit/Setup/ObjectConverterTest.php',
+        ],
     ],
     'ArrayObject' => [
         'warning_code' => 'ArrayObjectIsRestricted',
@@ -383,8 +385,8 @@ return [
                 'Magento/Framework/Indexer/Action/Base.php',
                 'Magento/MultipleWishlist/Test/Unit/Model/Search/Strategy/EmailTest.php',
                 'Magento/Rma/Test/Unit/Model/RmaRepositoryTest.php',
-                'Magento/Rma/Test/Unit/Model/Status/HistoryRepositoryTest.php'
-            ]
+                'Magento/Rma/Test/Unit/Model/Status/HistoryRepositoryTest.php',
+            ],
     ],
     'Magento\Framework\View\Element\UiComponent\ArrayObjectFactory' => [
         'warning_code' => 'ArrayObjectFactoryIsRestricted',
@@ -394,11 +396,11 @@ return [
                 'Magento/Ui/Model/Manager.php',
                 'Magento/Ui/Test/Unit/Model/ManagerTest.php',
                 'Magento/Framework/View/Element/UiComponent/Config/Provider/Component/Definition.php',
-            ]
+            ],
     ],
     'GraphQL\Language\Parser' => [
         'warning_code' => 'GraphQLLanguageParserIsRestricted',
         'replacement' => 'Magento\Framework\GraphQl\Query\QueryParser',
-        'exclude' => []
-    ]
+        'exclude' => [],
+    ],
 ];

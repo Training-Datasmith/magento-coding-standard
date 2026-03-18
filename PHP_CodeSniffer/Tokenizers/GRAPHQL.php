@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -15,7 +17,6 @@ use GraphQL\Language\Token;
  */
 class GRAPHQL extends Tokenizer
 {
-
     /**
      * Defines how GraphQL token types are mapped to PHP token types.
      *
@@ -166,8 +167,8 @@ class GRAPHQL extends Tokenizer
                     $processingCodeBlock = false;
                     break;
                 case $processingCodeBlock
-                     && $tokenCode !== T_STRING
-                     && isset($this->keywordTokenTypeMap[$tokenContent]):
+                    && $tokenCode !== T_STRING
+                    && isset($this->keywordTokenTypeMap[$tokenContent]):
                     //we have hit a keyword within a code block that is of wrong token type
                     $this->tokens[$i]['code'] = T_STRING;
                     $this->tokens[$i]['type'] = 'T_STRING';

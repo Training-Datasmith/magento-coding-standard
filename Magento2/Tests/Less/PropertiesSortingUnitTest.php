@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Less;
 
 class PropertiesSortingUnitTest extends AbstractLessSniffUnitTestCase
@@ -14,7 +17,7 @@ class PropertiesSortingUnitTest extends AbstractLessSniffUnitTestCase
     {
         return [
             9 => 1,
-            26 => 1
+            26 => 1,
         ];
     }
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2\Sniffs\Legacy;
 
@@ -24,7 +25,7 @@ class AbstractBlockSniff implements Sniff
     public function register(): array
     {
         return [
-            T_OBJECT_OPERATOR
+            T_OBJECT_OPERATOR,
         ];
     }
 
@@ -42,7 +43,7 @@ class AbstractBlockSniff implements Sniff
         if (!$this->isApplicable($content)) {
             return;
         }
-        
+
         $paramsCount = $this->getParametersCount($phpcsFile, $stackPtr + 1);
         if ($content === self::CHILD_HTML_METHOD && $paramsCount >= 3) {
             $phpcsFile->addError(
@@ -73,7 +74,7 @@ class AbstractBlockSniff implements Sniff
      */
     private function getParametersCount(File $phpcsFile, int $methodHtmlPosition): int
     {
-        $closePosition = $phpcsFile->getTokens()[$methodHtmlPosition +1]['parenthesis_closer'];
+        $closePosition = $phpcsFile->getTokens()[$methodHtmlPosition + 1]['parenthesis_closer'];
         $getTokenAsContent = $phpcsFile->getTokensAsString(
             $methodHtmlPosition + 2,
             ($closePosition - $methodHtmlPosition) - 2

@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Legacy;
 
 use DOMDocument;
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 class ObsoleteConfigNodesSniff implements Sniff
 {
@@ -61,7 +64,7 @@ class ObsoleteConfigNodesSniff implements Sniff
                         $xpath,
                         $suggestion
                     ),
-                    dom_import_simplexml($match)->getLineNo()-1,
+                    dom_import_simplexml($match)->getLineNo() - 1,
                     self::ERROR_CODE_CONFIG
                 );
             }

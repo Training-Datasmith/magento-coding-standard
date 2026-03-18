@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Less;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Class SemicolonSpacingSniff
@@ -54,7 +57,7 @@ class SemicolonSpacingSniff implements Sniff
 
         $semicolonPtr = $phpcsFile->findNext(T_SEMICOLON, ($stackPtr + 1));
         if ($tokens[$semicolonPtr]['line'] !== $tokens[$stackPtr]['line']) {
-            $semicolonPtr = $phpcsFile->findNext(T_STYLE, ($stackPtr + 1), null, false, ";");
+            $semicolonPtr = $phpcsFile->findNext(T_STYLE, ($stackPtr + 1), null, false, ';');
         }
 
         $this->validateSemicolon($phpcsFile, $stackPtr, $tokens, $semicolonPtr);

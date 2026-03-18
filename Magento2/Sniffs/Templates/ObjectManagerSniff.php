@@ -1,4 +1,5 @@
 <?php
+
 /************************************************************************
  *
  * Copyright 2024 Adobe
@@ -14,7 +15,7 @@
  * from Adobe.
  * **********************************************************************
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2\Sniffs\Templates;
 

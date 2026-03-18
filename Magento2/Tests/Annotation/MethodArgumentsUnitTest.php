@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Annotation;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
@@ -18,7 +21,7 @@ class MethodArgumentsUnitTest extends AbstractSniffUnitTest
             12 => 1,
             21 => 1,
             32 => 1,
-            50 => 1
+            50 => 1,
         ];
     }
 

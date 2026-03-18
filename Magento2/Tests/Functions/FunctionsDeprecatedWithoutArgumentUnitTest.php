@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -30,7 +31,7 @@ class FunctionsDeprecatedWithoutArgumentUnitTest extends AbstractSniffUnitTest
         return [
             23 => 1,
             25 => 1,
-            27 => 1
+            27 => 1,
         ];
     }
 }

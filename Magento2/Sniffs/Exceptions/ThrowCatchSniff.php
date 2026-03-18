@@ -1,13 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Exceptions;
 
-use function array_slice;
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Detects exceptions must not be handled in same function
@@ -96,7 +98,7 @@ class ThrowCatchSniff implements Sniff
      */
     private function getFullClassName(array $tokens, int|float $startPos): string
     {
-        $fullName = "";
+        $fullName = '';
         $endOfClassName = [T_SEMICOLON => 0, T_CLOSE_PARENTHESIS => 0];
 
         $tokenCount = count($tokens);

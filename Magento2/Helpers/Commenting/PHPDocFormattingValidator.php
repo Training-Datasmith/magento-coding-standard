@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Helpers\Commenting;
 
 use PHP_CodeSniffer\Files\File;
@@ -31,7 +34,7 @@ class PHPDocFormattingValidator
                 T_DOC_COMMENT_WHITESPACE,
                 T_DOC_COMMENT_TAG,
                 T_DOC_COMMENT_STRING,
-                T_DOC_COMMENT_CLOSE_TAG
+                T_DOC_COMMENT_CLOSE_TAG,
             ],
             $startPtr - 1,
             null,

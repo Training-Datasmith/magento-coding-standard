@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -22,7 +23,7 @@ class MiscDeprecatedFunctionsTest extends AbstractEslintTestCase
                 'jQuery.isFunction() is deprecated. In most cases, it can be replaced by [typeof x === "function"]',
                 'jQuery.type() is deprecated. Replace with an appropriate type check like [typeof x === "function"]',
                 'jQuery.isArray() is deprecated. Use the native Array.isArray method instead',
-                'jQuery.parseJSON() is deprecated. To parse JSON strings, use the native JSON.parse method instead'
+                'jQuery.parseJSON() is deprecated. To parse JSON strings, use the native JSON.parse method instead',
             ]
         );
     }

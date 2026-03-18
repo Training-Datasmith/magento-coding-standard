@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\CodeAnalysis;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
@@ -30,7 +33,7 @@ class EmptyBlockUnitTest extends AbstractSniffUnitTest
             72 => 2,
             74 => 1,
             85 => 1,
-            89 => 1
+            89 => 1,
         ];
     }
 

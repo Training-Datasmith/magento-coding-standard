@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Legacy;
 
 use DirectoryIterator;
@@ -37,7 +40,7 @@ class PhtmlTemplateUnitTest extends AbstractSniffUnitTest
 
         // Put them in order.
         sort($testFiles);
-        
+
         return $testFiles;
     }
 
@@ -59,7 +62,7 @@ class PhtmlTemplateUnitTest extends AbstractSniffUnitTest
                 9 => 1,
                 20 => 1,
                 23 => 1,
-                27 => 1
+                27 => 1,
             ];
         }
         if ($testFile === 'PhtmlTemplateUnitTest.3.phtml') {

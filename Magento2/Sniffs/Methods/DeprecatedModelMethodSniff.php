@@ -1,19 +1,22 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2020 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Methods;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Detects possible use of deprecated model methods.
  */
 class DeprecatedModelMethodSniff implements Sniff
 {
-    private const RESOURCE_METHOD = "getResource";
+    private const RESOURCE_METHOD = 'getResource';
 
     /**
      * String representation of warning.
@@ -37,7 +40,7 @@ class DeprecatedModelMethodSniff implements Sniff
     protected $methods = [
         'save',
         'load',
-        'delete'
+        'delete',
     ];
 
     /**
@@ -46,7 +49,7 @@ class DeprecatedModelMethodSniff implements Sniff
     public function register(): array
     {
         return [
-            T_OBJECT_OPERATOR
+            T_OBJECT_OPERATOR,
         ];
     }
     /**

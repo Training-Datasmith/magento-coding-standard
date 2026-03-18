@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2Framework\Sniffs\Header;
 
@@ -29,7 +30,7 @@ class CopyrightAnotherExtensionsFilesSniff implements Sniff
     {
         return [
             T_INLINE_HTML,
-            T_OPEN_TAG
+            T_OPEN_TAG,
         ];
     }
 
@@ -42,7 +43,7 @@ class CopyrightAnotherExtensionsFilesSniff implements Sniff
             return;
         }
 
-      // @phpcs:ignore Magento2.Functions.DiscouragedFunction.Discouraged
+        // @phpcs:ignore Magento2.Functions.DiscouragedFunction.Discouraged
         $content = file_get_contents($phpcsFile->getFilename());
 
         if ($this->isCopyrightYearValid($content) === false) {

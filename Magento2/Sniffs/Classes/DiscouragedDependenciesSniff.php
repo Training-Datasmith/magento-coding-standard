@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Classes;
 
 use PHP_CodeSniffer\Files\File;
@@ -53,7 +56,7 @@ class DiscouragedDependenciesSniff implements Sniff
     {
         return [
             T_USE,
-            T_FUNCTION
+            T_FUNCTION,
         ];
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -20,7 +21,7 @@ class DeprecatedExprTest extends AbstractEslintTestCase
             'DeprecatedExprTest.js',
             [
                 'jQuery.expr[":"] is deprecated; Use jQuery.expr.pseudos instead',
-                'jQuery.expr.filters is deprecated; Use jQuery.expr.pseudos instead'
+                'jQuery.expr.filters is deprecated; Use jQuery.expr.pseudos instead',
             ]
         );
     }

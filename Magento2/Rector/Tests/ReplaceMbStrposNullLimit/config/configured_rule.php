@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2022 Adobe
  * See COPYING.txt for license details.

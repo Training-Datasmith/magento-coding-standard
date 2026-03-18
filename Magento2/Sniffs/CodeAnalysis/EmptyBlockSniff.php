@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2018 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\CodeAnalysis;
 
 use PHP_CodeSniffer\Files\File;
@@ -22,7 +25,7 @@ class EmptyBlockSniff extends EmptyStatementSniff
             parent::register(),
             [
                 T_FUNCTION,
-                T_TRAIT
+                T_TRAIT,
             ]
         );
     }
@@ -41,7 +44,7 @@ class EmptyBlockSniff extends EmptyStatementSniff
         if ($tokens[$stackPtr]['code'] === T_FUNCTION &&
             str_starts_with($phpcsFile->getDeclarationName($stackPtr), '__construct') &&
             count($phpcsFile->getMethodParameters($stackPtr)) > 0 &&
-            array_reduce($phpcsFile->getMethodParameters($stackPtr), static fn(bool $result, $methodParam) => $result && isset($methodParam['property_visibility']), true)) {
+            array_reduce($phpcsFile->getMethodParameters($stackPtr), static fn (bool $result, $methodParam) => $result && isset($methodParam['property_visibility']), true)) {
 
             return;
         }

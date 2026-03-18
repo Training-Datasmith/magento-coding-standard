@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
@@ -38,7 +39,7 @@ class FunctionsDeprecatedWithoutArgumentSniff implements Sniff
     private const DEPRECATED_FUNCTIONS_AND_FIXES = [
         'mb_check_encoding' => false,
         'get_class' => '$this',
-        'get_parent_class' => '$this'
+        'get_parent_class' => '$this',
     ];
 
     /**
@@ -47,7 +48,7 @@ class FunctionsDeprecatedWithoutArgumentSniff implements Sniff
     public function register(): array
     {
         return [
-            T_OPEN_PARENTHESIS
+            T_OPEN_PARENTHESIS,
         ];
     }
 
@@ -77,7 +78,7 @@ class FunctionsDeprecatedWithoutArgumentSniff implements Sniff
             );
             return;
         }
-        
+
         $fix = $phpcsFile->addFixableWarning(
             sprintf(self::WARNING_MESSAGE, $functionName),
             $stackPtr,

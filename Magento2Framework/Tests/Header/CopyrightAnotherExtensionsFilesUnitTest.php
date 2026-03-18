@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2Framework\Tests\Header;
 
 use PHP_CodeSniffer\Config;
@@ -21,7 +24,7 @@ class CopyrightAnotherExtensionsFilesUnitTest extends AbstractSniffUnitTest
         $config->extensions = array_merge(
             $config->extensions,
             [
-                'js' => 'PHP'
+                'js' => 'PHP',
             ]
         );
 

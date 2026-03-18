@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Legacy;
 
 use DOMDocument;
@@ -15,7 +18,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 class ObsoleteMenuSniff implements Sniff
 {
     private const WARNING_OBSOLETE_MENU_STRUCTURE = 'ObsoleteMenuStructure';
-    
+
     private string $xpath = '/config/menu/*[boolean(./children) or boolean(./title) or boolean(./action)]';
 
     /**
@@ -24,7 +27,7 @@ class ObsoleteMenuSniff implements Sniff
     public function register(): array
     {
         return [
-            T_INLINE_HTML
+            T_INLINE_HTML,
         ];
     }
 

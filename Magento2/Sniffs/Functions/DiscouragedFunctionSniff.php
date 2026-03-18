@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2018 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Functions;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff;
@@ -245,6 +248,6 @@ class DiscouragedFunctionSniff extends ForbiddenFunctionsSniff
         '^strftime$' => 'IntlDateFormatter::format',
         '^gmstrftime$' => 'IntlDateFormatter::format',
         '^(mhash|mhash_.*)$' => 'hash_*',
-        '^odbc_result_all$' => null
+        '^odbc_result_all$' => null,
     ];
 }

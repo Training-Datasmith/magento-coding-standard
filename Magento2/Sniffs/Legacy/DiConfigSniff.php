@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Legacy;
 
 use PHP_CodeSniffer\Files\File;
@@ -13,23 +16,23 @@ class DiConfigSniff implements Sniff
     private const OBSOLETE_NODES = [
         'FoundObsoleteParamNode' => [
             'pattern' => '<param',
-            'message' => 'The <param> node is obsolete. Instead, use the <argument name="..." xsi:type="...">'
+            'message' => 'The <param> node is obsolete. Instead, use the <argument name="..." xsi:type="...">',
         ],
         'FoundObsoleteInstanceNode' => [
             'pattern' => '<instance',
-            'message' => 'The <instance> node is obsolete. Instead, use the <argument name="..." xsi:type="object">>'
+            'message' => 'The <instance> node is obsolete. Instead, use the <argument name="..." xsi:type="object">>',
         ],
         'FoundObsoleteArrayNode' => [
             'pattern' => '<array',
-            'message' => 'The <array> node is obsolete. Instead, use the <argument name="..." xsi:type="array">'
+            'message' => 'The <array> node is obsolete. Instead, use the <argument name="..." xsi:type="array">',
         ],
         'FoundObsoleteItemNode' => [
             'pattern' => '<item key=',
-            'message' => 'The <item key="..."> node is obsolete. Instead, use the <item name="..." xsi:type="...">'
+            'message' => 'The <item key="..."> node is obsolete. Instead, use the <item name="..." xsi:type="...">',
         ],
         'FoundObsoleteValueNode' => [
             'pattern' => '<value',
-            'message' => 'The <value> node is obsolete. Instead, provide the actual value as a text literal'
+            'message' => 'The <value> node is obsolete. Instead, provide the actual value as a text literal',
         ],
     ];
 
@@ -39,7 +42,7 @@ class DiConfigSniff implements Sniff
     public function register(): array
     {
         return [
-            T_INLINE_HTML
+            T_INLINE_HTML,
         ];
     }
 

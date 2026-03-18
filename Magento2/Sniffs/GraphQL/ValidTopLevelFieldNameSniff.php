@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\GraphQL;
 
 use PHP_CodeSniffer\Files\File;
@@ -29,7 +32,7 @@ class ValidTopLevelFieldNameSniff extends AbstractGraphQLSniff
 
         //compose function name by making use of the next strings that we find until we hit a non-string token
         $name = '';
-        for ($i=$stackPtr+1; $tokens[$i]['code'] === T_STRING; ++$i) {
+        for ($i = $stackPtr + 1; $tokens[$i]['code'] === T_STRING; ++$i) {
             $name .= $tokens[$i]['content'];
         }
 

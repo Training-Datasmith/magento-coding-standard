@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Less;
 
 class IndentationUnitTest extends AbstractLessSniffUnitTestCase
@@ -19,7 +22,7 @@ class IndentationUnitTest extends AbstractLessSniffUnitTestCase
             17 => 1,
             18 => 1,
             19 => 1,
-            20 => 1
+            20 => 1,
         ];
     }
 

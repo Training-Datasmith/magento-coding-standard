@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2019 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\NamingConvention;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Validates that class name is not reserved word.
@@ -34,7 +37,7 @@ class ReservedWordsSniff implements Sniff
         'object' => '7',
         'mixed' => '7',
         'numeric' => '7',
-        'match' => '8'
+        'match' => '8',
     ];
 
     private const CLASS_ERROR_CODE = 'ForbiddenAsClassName';

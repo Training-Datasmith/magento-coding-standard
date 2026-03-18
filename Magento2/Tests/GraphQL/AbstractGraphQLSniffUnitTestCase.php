@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\GraphQL;
 
 use PHP_CodeSniffer\Config;
@@ -26,7 +29,7 @@ abstract class AbstractGraphQLSniffUnitTestCase extends AbstractSniffUnitTest
         $config->extensions = array_merge(
             $config->extensions,
             [
-                'graphqls' => 'GRAPHQL'
+                'graphqls' => 'GRAPHQL',
             ]
         );
 

@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Functions;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
@@ -266,7 +269,7 @@ class DiscouragedFunctionUnitTest extends AbstractSniffUnitTest
             500 => 1,
             502 => 1,
             504 => 1,
-            506 => 1
+            506 => 1,
         ];
     }
 }

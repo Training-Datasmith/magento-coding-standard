@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
+
 namespace Magento2\Sniffs\Less;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Class TypeSelectorsSniff
@@ -39,7 +42,7 @@ class TypeSelectorsSniff implements Sniff
         'datalist', 'details', 'dialog', 'embed', 'figure', 'figcaption',
         'footer', 'header', 'hgroup', 'keygen', 'mark', 'meter', 'nav',
         'output', 'progress', 'ruby', 'rt', 'rp', 'track', 'section',
-        'source', 'summary', 'time', 'video', 'wbr'
+        'source', 'summary', 'time', 'video', 'wbr',
     ];
 
     /**

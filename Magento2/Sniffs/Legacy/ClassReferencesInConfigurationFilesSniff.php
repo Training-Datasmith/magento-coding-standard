@@ -1,15 +1,16 @@
 <?php
+
 /**
  * Copyright 2021 Adobe
  * All Rights Reserved.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Magento2\Sniffs\Legacy;
 
 use DOMDocument;
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 use SimpleXMLElement;
 
 class ClassReferencesInConfigurationFilesSniff implements Sniff
@@ -155,9 +156,9 @@ class ClassReferencesInConfigurationFilesSniff implements Sniff
     private function getValuesFromXmlTagContent(SimpleXMLElement $xml, string $xPath): array
     {
         $nodes = $xml->xpath($xPath) ?: [];
-        return array_map(fn(\SimpleXMLElement $item) => [
+        return array_map(fn (\SimpleXMLElement $item) => [
             'value' => (string)$item,
-            'lineNumber' => dom_import_simplexml($item)->getLineNo()-1,
+            'lineNumber' => dom_import_simplexml($item)->getLineNo() - 1,
         ], $nodes);
     }
 
@@ -167,9 +168,9 @@ class ClassReferencesInConfigurationFilesSniff implements Sniff
     private function getValuesFromXmlTagName(SimpleXMLElement $xml, string $xPath): array
     {
         $nodes = $xml->xpath($xPath) ?: [];
-        return array_map(fn(\SimpleXMLElement $item) => [
+        return array_map(fn (\SimpleXMLElement $item) => [
             'value' => $item->getName(),
-            'lineNumber' => dom_import_simplexml($item)->getLineNo()-1,
+            'lineNumber' => dom_import_simplexml($item)->getLineNo() - 1,
         ], $nodes);
     }
 
@@ -184,7 +185,7 @@ class ClassReferencesInConfigurationFilesSniff implements Sniff
             if (isset($nodeArray['@attributes'][$attr])) {
                 return [
                     'value' => $nodeArray['@attributes'][$attr],
-                    'lineNumber' => dom_import_simplexml($item)->getLineNo()-1,
+                    'lineNumber' => dom_import_simplexml($item)->getLineNo() - 1,
                 ];
             }
         }, $nodes);

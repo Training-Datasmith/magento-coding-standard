@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento2\Tests\Classes;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
@@ -28,7 +31,7 @@ class AbstractApiUnitTest extends AbstractSniffUnitTest
         if ($testFile === 'AbstractApiUnitTest.1.inc') {
             return [
                 14 => 1,
-                23 => 1
+                23 => 1,
             ];
         }
 
